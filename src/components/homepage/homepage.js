@@ -40,8 +40,8 @@ class Homepage extends Component {
             <div className="homepage container">
                 <GameList games={games}/>
                 <p className="center">{this.state.x}</p>
-                <button className="btn-large waves-effect center" id="decrement" onClick={this.decrementPage}>Previous Page</button>
-                <button className="btn-large waves-effect center" id="increment" onClick={this.incrementPage}>Next Page</button>
+                <button className="btn-large waves-effect" id="decrement" onClick={this.decrementPage}>Previous Page</button>
+                <button className="btn-large waves-effect" id="increment" onClick={this.incrementPage}>Next Page</button>
             </div>   
         )
     }
