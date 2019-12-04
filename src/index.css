@@ -15,3 +15,7 @@ code {
 .card-image img{
   height: 11em;
 }
+
+#increment , #decrement{
+  margin-bottom: 5em;
+}
