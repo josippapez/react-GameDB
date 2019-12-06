@@ -3,10 +3,8 @@ import {connect} from 'react-redux';
 import GameList from '../games/gameslist'
 
 class Homepage extends Component {
-    componentWillReceiveProps(){
-    }
     render() {
-        const {games} = this.props;
+        var {games} = this.props;
         console.log("Games",{games});
         return (
             <div className="homepage container">
