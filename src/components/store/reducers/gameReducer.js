@@ -1,5 +1,3 @@
-import Axios from "axios";
-
 const initState={
     games:[
         {id:'1', title: "new", content:"oofkgdo"},
@@ -8,14 +6,13 @@ const initState={
         {id:'1', title: "new", content:"oofkgdo"}
     ]
 };
-const gameReducer =(state=initState,action)=>{
+
+async function  gameReducer (state=initState,action){
     console.log("Mapping2!");
-    Axios.get('https://api.rawg.io/api/games?page=1')
-            .then(res=>{
-                state=res.data.results
-                console.log("state:",state);
-            });
-    return state;
+    const response = await fetch('https://api.rawg.io/api/games?page=1');
+    const myJson = await response.json();
+    console.log(myJson);
+    return myJson;
 }
 
 export default gameReducer;
