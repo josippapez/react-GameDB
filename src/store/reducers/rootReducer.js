@@ -8,8 +8,8 @@ const initState={
 const rootReducer= (state=initState,action) =>{
     switch (action.type) {
         case 'FETCH_GAMES':
-            console.log('Fetched games', action.game)
-            return state;
+            console.log('Fetched games', action.games)
+            return {...state, games:action.games};
         case 'FETCH_ERROR':
             console.log('Fetch games error', action.err)
             return state;
