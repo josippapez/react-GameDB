@@ -28,24 +28,32 @@ class Homepage extends Component {
             pageId : this.state.pageId-1
         },()=>this.componentDidMount());
     }
+    handleChange=(e)=>{
+        if(e.target.value > 0){
+        this.setState({
+            pageId:e.target.value
+        })}
+        else{console.log("Value has to be positive");
+        }
+    }
+    handlePageNumberSubmit=(e)=>{
+        e.preventDefault();
+        this.componentDidMount();
+    }
     render() {
     var { games } = this.props;
     console.log("Games", this.props.games);
     return (
         <div className="homepage container">
         {games.results && <GameList games={games.results} />}
-        <p className="center">{this.state.pageId}</p>
-        <button
-            className="btn-large waves-effect"
-            id="decrement"
-            onClick={this.decrementPage}
-        >
+        <form className="center" onSubmit={this.handlePageNumberSubmit}>
+            Page number: <input type="number" id="pageNumber"  onChange={this.handleChange} className="center"></input>
+            <button className="btn-small waves-effect blue">Submit</button>
+        </form>
+        <button className="btn-large waves-effect" id="decrement" onClick={this.decrementPage}>
             Previous Page
         </button>
-        <button
-            className="btn-large waves-effect"
-            id="increment"
-            onClick={this.incrementPage}
+        <button className="btn-large waves-effect" id="increment" onClick={this.incrementPage}
         >
             Next Page
         </button>
@@ -53,14 +61,14 @@ class Homepage extends Component {
     );
     }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   console.log("home state:", state);
   return {
     games: state.games
   };
 };
 
-const mapStateToDispatch = dispatch => {
+const mapStateToDispatch = (dispatch) => {
     console.log("dispatching");
   return {
     fetch: (pageId) => dispatch(fetchGames(pageId))
