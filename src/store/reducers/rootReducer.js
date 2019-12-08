@@ -4,7 +4,8 @@ const initState={
         {id: '2',title:'Second title',content:"sodgodkfos"},
         {id: '3',title:'Third title',content:"idjosd"}
     ],
-    game:{id: '1', name:'Name goes here', content:'Content goes here'}
+    game:{},
+    searchResults:[]
 }
 const rootReducer= (state=initState,action) =>{
     switch (action.type) {
@@ -20,6 +21,12 @@ const rootReducer= (state=initState,action) =>{
         case 'FETCH_GAME_ERROR':
             console.log('Fetch games error', action.err)
             return state;
+        case 'FETCH_SEARCHED_GAME':
+                console.log('Fetched searched game', action.games)
+                return {...state, searchResults:action.games};
+        case 'FETCH_SEARCHED_GAME_ERROR':
+                console.log('Fetch searched games error', action.err)
+                return state;
         default:
             return state;
     }

@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchGame } from "../../store/actions/gamesActions";
+import { fetchGameDetail } from "../../store/actions/gamesActions";
 
 class GameDetails extends Component {
-    
     componentDidMount(){
         this.props.fetch(this.props.match.params.id);
     }
     render(){
         let { game } = this.props;
         return (
-            <div className="card">
-                <div className="detail-card-image">
+            <div className="detail-card grid-container">
+                <div className="detail-card-image hoverable">
                     <img src={game.background_image} alt={game.slug}/>
                 </div>
                 <p className="detail-card-title"><b>{game.name}</b></p>
@@ -25,6 +24,7 @@ class GameDetails extends Component {
                     })}
                 </div>
                 <div className="container" id="detail-card-description">
+                <p>Released: {game.released}</p>
                     {game.description_raw}
                 </div>
                 <div className="section">
@@ -49,7 +49,7 @@ const mapStateToProps = state => {
   const mapStateToDispatch = dispatch => {
       console.log("dispatching");
     return {
-      fetch: (gameId) => dispatch(fetchGame(gameId))
+      fetch: (gameId) => dispatch(fetchGameDetail(gameId))
     };
   };
 export default connect(mapStateToProps, mapStateToDispatch)(GameDetails);
