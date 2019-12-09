@@ -19,17 +19,13 @@ class Homepage extends Component {
         }
     }
     componentDidMount() {
-        this.props.fetch(this.state.pageId);
-        this.checkPageNumberForButtons();
-    }
-    searchForGame(){
         if(this.state.gameName!==""){
             this.props.fetchFromSearch(this.state.gameName,this.state.pageId);
-            this.checkPageNumberForButtons()
         }
         else{
-            this.componentDidMount();
+            this.props.fetch(this.state.pageId);
         }
+        this.checkPageNumberForButtons();
     }
     incrementPage=()=>{
         if(this.state.gameName.length===0){
@@ -40,7 +36,7 @@ class Homepage extends Component {
         else{
             this.setState({
                 pageId : this.state.pageId+1
-            },()=>this.searchForGame());
+            },()=>this.componentDidMount());
         }
     }
     decrementPage=()=>{
@@ -52,7 +48,7 @@ class Homepage extends Component {
         else{
             this.setState({
                 pageId : this.state.pageId-1
-            },()=>this.searchForGame());
+            },()=>this.componentDidMount());
         }
     }
     handleChange=(e)=>{
@@ -65,7 +61,7 @@ class Homepage extends Component {
     }
     handlePageNumberSubmit=(e)=>{
         e.preventDefault();
-        this.searchForGame();
+        this.componentDidMount();
     }
     handleQuerySubmit=(e)=>{
         e.preventDefault();
@@ -73,7 +69,7 @@ class Homepage extends Component {
         this.setState({
             pageId:1,
             gameName:input
-        },()=>this.searchForGame()); 
+        },()=>this.componentDidMount()); 
     }
     render() {
         var { games } = this.props;

@@ -29,23 +29,35 @@ code {
   margin:auto;
   margin-bottom: 20px;
 }
+
+
+
 .grid-container {
   display: grid;
+  grid-gap:50px;
   grid-template-columns: 40% 60%;
-  padding: 10px;
 }
-
 .detail-card{
-  margin: auto;
   padding: 3%;
-  margin-top: 1%;
+  margin-top: 2%;
   margin-bottom: 5%;
+  margin-right:3%;
+  margin-left:3%;
   border-radius: 50px;
   background: white;
   height: fit-content;
 }
 .detail-card-image{
-  grid-row: 1 / span 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+.detail-card-content{
+  grid-row-start: 1;
+  grid-row-end: 5;
+  grid-column-start: 2;
+  grid-column-end: 2;
 }
 .detail-card-image img{
   width: 100%;
@@ -54,6 +66,16 @@ code {
 #detail-card-description{
   z-index: 1;
 }
+.square {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-radius: 8px;
+  background-color: rgb(44, 160, 54);
+}
+
+
+
 #card{
   z-index: 0;
   height: 350px;
