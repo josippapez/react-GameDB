@@ -11,7 +11,7 @@ const rootReducer= (state=initState,action) =>{
     switch (action.type) {
         case 'FETCH_GAMES':
             console.log('Fetched games', action.games)
-            return {...state, games:action.games};
+            return {...state, games:action.games, searchResults:[]};
         case 'FETCH_ERROR':
             console.log('Fetch games error', action.err)
             return state;
@@ -23,7 +23,7 @@ const rootReducer= (state=initState,action) =>{
             return state;
         case 'FETCH_SEARCHED_GAME':
                 console.log('Fetched searched game', action.games)
-                return {...state, searchResults:action.games};
+                return {...state, searchResults:action.games, games:[]};
         case 'FETCH_SEARCHED_GAME_ERROR':
                 console.log('Fetch searched games error', action.err)
                 return state;

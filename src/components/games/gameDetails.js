@@ -40,14 +40,12 @@ class GameDetails extends Component {
     }
 }
 const mapStateToProps = state => {
-    console.log("home state:", state.game);
     return {
         game:state.game
     };
   };
   
   const mapStateToDispatch = dispatch => {
-      console.log("dispatching");
     return {
       fetch: (gameId) => dispatch(fetchGameDetail(gameId))
     };

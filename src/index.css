@@ -20,6 +20,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.homepage{
+  width: 100%;
+}
 .homepage form{
   position:center;
   width: 20%;

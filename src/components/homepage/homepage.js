@@ -22,9 +22,14 @@ class Homepage extends Component {
         this.props.fetch(this.state.pageId);
         this.checkPageNumberForButtons();
     }
-    componentDidCatch(){
-        this.props.fetchFromSearch(this.state.gameName,this.state.pageId);
-        this.checkPageNumberForButtons()
+    searchForGame(){
+        if(this.state.gameName!==""){
+            this.props.fetchFromSearch(this.state.gameName,this.state.pageId);
+            this.checkPageNumberForButtons()
+        }
+        else{
+            this.componentDidMount();
+        }
     }
     incrementPage=()=>{
         if(this.state.gameName.length===0){
@@ -35,7 +40,7 @@ class Homepage extends Component {
         else{
             this.setState({
                 pageId : this.state.pageId+1
-            },()=>this.componentDidCatch());
+            },()=>this.searchForGame());
         }
     }
     decrementPage=()=>{
@@ -47,7 +52,7 @@ class Homepage extends Component {
         else{
             this.setState({
                 pageId : this.state.pageId-1
-            },()=>this.componentDidCatch());
+            },()=>this.searchForGame());
         }
     }
     handleChange=(e)=>{
@@ -58,34 +63,25 @@ class Homepage extends Component {
         else{console.log("Value has to be positive");
         }
     }
-    handleSearchedChange=(e)=>{
-        if(e.target.value != null){
-        this.setState({
-            gameName:e.target.value   
-        })}
-        else{console.log("Can't search emtpy text");
-        }
-    }
     handlePageNumberSubmit=(e)=>{
         e.preventDefault();
-        this.componentDidCatch();
+        this.searchForGame();
     }
     handleQuerySubmit=(e)=>{
         e.preventDefault();
+        var input = document.getElementById('searchText').value;
         this.setState({
-            pageId:1
-        });
-        this.componentDidCatch(); 
+            pageId:1,
+            gameName:input
+        },()=>this.searchForGame()); 
     }
     render() {
         var { games } = this.props;
         var {searchResults}= this.props;
-        console.log("Games", {games});
-        console.log("Search:", {searchResults});
         return (
             <div className="homepage container">
             <form className="center" onSubmit={this.handleQuerySubmit}>
-                <input type="text" id="pageNumber" onChange={this.handleSearchedChange} className="center"></input>
+                <input type="text" id="searchText" className="center"></input>
                 <button className="btn-small waves-effect blue">Submit</button>
             </form>
             {(searchResults.results && <GameList games={searchResults.results}/>)||(games.results && <GameList games={games.results} />)}
@@ -107,7 +103,6 @@ class Homepage extends Component {
     }
 }
 const mapStateToProps = (state) => {
-  console.log("home state:", state);
   return {
     games: state.games,
     searchResults: state.searchResults
@@ -115,7 +110,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapStateToDispatch = (dispatch) => {
-    console.log("dispatching");
   return {
     fetch: (pageId) => dispatch(fetchGames(pageId)),
     fetchFromSearch: (gameName, pageId) => dispatch(fetchGame(gameName,pageId))

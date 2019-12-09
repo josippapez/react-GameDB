@@ -2,7 +2,7 @@ import React from 'react'
 
 function GamesSummary({game}) {
     return (
-        <div className="card small hoverable" id="card">
+        <div className="card hoverable" id="card">
                 <div className="card-image z-depth-5">
                     <img src={game.background_image} alt={game.slug}/>
                 </div>
