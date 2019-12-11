@@ -6,57 +6,63 @@ class GameDetails extends Component {
     componentDidMount(){
         this.props.fetch(this.props.match.params.id);
     }
-    extract(propertyName, object) {
-        const parts = propertyName.split(".");
-        let length = parts.length;
-        let i;
-        let property = object || this;
-
-        for (i = 0; i < length; i++) {
-            property = property[parts[i]];
+    checkForVideo(game){
+        if(game.clip && game.clip!=null){
+            return(
+                <video controls src={game.clip.clip} muted/>
+            )
         }
-
-        return property;
+    }
+    alternativeNames(game){
+        if(game.alternative_names && game.alternative_names.length>0){
+            return(
+            <p>Alternative names:
+                {game.alternative_names.map((name)=>{
+                    return(
+                        " " + name
+                    )
+                }).join(", ")}
+            </p>
+            )
+        }
+    }
+    developers(game){
+        if(game.developers && game.developers.length>0){
+            return(
+            <p><b>Developers:
+                {game.developers.map((developer)=>{
+                    return(
+                       " " + developer.name
+                    )
+                }).join(", ")}
+            </b></p>
+            )
+        }
     }
     render(){
         let { game } = this.props;
-        let preview = this.extract('preview', game['clip']);
-        let clip = this.extract('clip', game['clip']);
-        console.log(preview);
-        console.log(clip);
-        
         return (
-            <div className="detail-card grid-container">
+            <div className="detail-card grid-container" id="fadein">
                 <div>
                     <div className="detail-card-image hoverable">
                         <img src={game.background_image} alt={game.slug}/>
                     </div>
                     <div className="detail-video-clip">
-                        <video controls src={clip} muted/>
+                        {this.checkForVideo(game)}
                     </div>
                 </div>
                 <div className="detail-card-content">
                     <p className="detail-card-title"><b>{game.name}</b></p>
                     <div className="square white-text"><p><b>{game.metacritic}</b></p></div>
                     <div id="alternative-name">
-                        <p>Alternative names:</p>
-                        {game.alternative_names && game.alternative_names.map((name)=>{
-                            return(
-                                <p key={name}>{name}</p>
-                            )
-                        })}
+                        {this.alternativeNames(game)}
                     </div>
                     <div className="container" id="detail-card-description">
                         <p>Released: {game.released}</p>
                             {game.description_raw}
                     </div>
-                    <div className="section">
-                    Developers:
-                        {game.developers && game.developers.map((developer)=>{
-                            return(
-                                <div key={developer.id}>{developer.name}</div>
-                            )
-                        })}
+                    <div className="developers">
+                       {this.developers(game)}
                     </div>
                 </div>
             </div>

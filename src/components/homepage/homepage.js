@@ -75,25 +75,25 @@ class Homepage extends Component {
         var { games } = this.props;
         var {searchResults}= this.props;
         return (
-            <div className="homepage container">
-            <form className="center" onSubmit={this.handleQuerySubmit}>
-                <input type="text" id="searchText" className="center"></input>
-                <button className="btn-small waves-effect blue">Submit</button>
-            </form>
-            {(searchResults.results && <GameList games={searchResults.results}/>)||(games.results && <GameList games={games.results} />)}
+            <div className="homepage container" id="fadein">
+                <form className="center" onSubmit={this.handleQuerySubmit}>
+                    <input type="text" id="searchText" className="center"></input>
+                    <button className="btn-small waves-effect blue">Submit</button>
+                </form>
+                {(searchResults.results && <GameList games={searchResults.results}/>)||(games.results && <GameList games={games.results} />)}
 
-            <form className="center" onSubmit={this.handlePageNumberSubmit}>
-                Page number: {this.state.pageId} 
-                <input type="number" id="pageNumber" onChange={this.handleChange} className="center"></input>
-                <button className="btn-small waves-effect blue">Submit</button>
-            </form>
-            <button className="btn-large waves-effect" id="decrement" onClick={this.decrementPage}>
-                Previous Page
-            </button>
-            <button className="btn-large waves-effect" id="increment" onClick={this.incrementPage}
-            >
-                Next Page
-            </button>
+                <form className="center" onSubmit={this.handlePageNumberSubmit}>
+                    Page number: {this.state.pageId} 
+                    <input type="number" id="pageNumber" onChange={this.handleChange} className="center"></input>
+                    <button className="btn-small waves-effect blue">Submit</button>
+                </form>
+                <button className="btn-large waves-effect" id="decrement" onClick={this.decrementPage}>
+                    Previous Page
+                </button>
+                <button className="btn-large waves-effect" id="increment" onClick={this.incrementPage}
+                >
+                    Next Page
+                </button>
             </div>
         );
     }

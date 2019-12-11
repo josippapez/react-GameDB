@@ -39,11 +39,11 @@ code {
 }
 .detail-card{
   padding: 3%;
-  margin-top: 2%;
+  margin-top: 25px;
   margin-bottom: 5%;
   margin-right:3%;
   margin-left:3%;
-  border-radius: 50px;
+  border-radius: 25px;
   background: white;
   height: fit-content;
 }
@@ -58,7 +58,6 @@ code {
 }
 .detail-card-content{
   grid-row-start: 1;
-  grid-row-end: 5;
   grid-column-start: 2;
   grid-column-end: 2;
 }
