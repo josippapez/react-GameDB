@@ -29,14 +29,12 @@ code {
   margin:auto;
   margin-bottom: 20px;
 }
-
-
-
-.grid-container {
-  display: grid;
-  grid-gap:50px;
-  grid-template-columns: 40% 60%;
+.top-buffer{
+  margin-top:25px;
 }
+
+
+
 .detail-card{
   padding: 3%;
   margin-top: 25px;
@@ -74,6 +72,13 @@ code {
   width: 50px;
   border-radius: 8px;
   background-color: rgb(44, 160, 54);
+  top: 0%;
+  right: 3%;
+}
+.square label{
+  position: absolute;
+  top: 25%;
+  left: 32%;
 }
 
 
@@ -93,7 +98,7 @@ code {
   transform: rotate(180deg);
   transform: scaleY(-1);
 }
-.card-image, .card-image img{
+.card-image-top, .card-image-top img{
   z-index: 1;
   width: 100%;
   height: 11em;

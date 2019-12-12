@@ -11,11 +11,11 @@ class Homepage extends Component {
     checkPageNumberForButtons(){
         if(this.state.pageId===1){
             var button = document.getElementById('decrement');
-            button.classList.add("disabled");
+            button.setAttribute("disabled","disabled");
         }
         else{
             button = document.getElementById('decrement');
-            button.classList.remove("disabled");
+            button.removeAttribute("disabled");
         }
     }
     componentDidMount() {
@@ -28,35 +28,20 @@ class Homepage extends Component {
         this.checkPageNumberForButtons();
     }
     incrementPage=()=>{
-        if(this.state.gameName.length===0){
-            this.setState({
-                pageId : this.state.pageId+1
-            },()=>this.componentDidMount());
-        }
-        else{
-            this.setState({
-                pageId : this.state.pageId+1
-            },()=>this.componentDidMount());
-        }
+        this.setState({
+            pageId : this.state.pageId+1
+        },()=>this.componentDidMount());
     }
     decrementPage=()=>{
-        if(this.state.gameName.length===0){
-            this.setState({
-                pageId : this.state.pageId-1
-            },()=>this.componentDidMount());
-        }
-        else{
-            this.setState({
-                pageId : this.state.pageId-1
-            },()=>this.componentDidMount());
-        }
+        this.setState({
+            pageId : this.state.pageId-1
+        },()=>this.componentDidMount());
     }
     handleChange=(e)=>{
         if(e.target.value > 0){
-        this.setState({
-            pageId:e.target.valueAsNumber   
-        })}
-        else{console.log("Value has to be positive");
+            this.setState({
+                pageId:e.target.valueAsNumber   
+            })
         }
     }
     handlePageNumberSubmit=(e)=>{
@@ -75,23 +60,22 @@ class Homepage extends Component {
         var { games } = this.props;
         var {searchResults}= this.props;
         return (
-            <div className="homepage container" id="fadein">
-                <form className="center" onSubmit={this.handleQuerySubmit}>
-                    <input type="text" id="searchText" className="center"></input>
-                    <button className="btn-small waves-effect blue">Submit</button>
+            <div className="homepage container-fluid top-buffer" id="fadein">
+                <form className="center form-check-inline" onSubmit={this.handleQuerySubmit}>
+                    <label className="mb-0 mr-sm-2">Search:</label>
+                    <input type="text" id="searchText" className="form-control"></input>
+                    <button className="btn btn-dark">Submit</button>
                 </form>
                 {(searchResults.results && <GameList games={searchResults.results}/>)||(games.results && <GameList games={games.results} />)}
-
                 <form className="center" onSubmit={this.handlePageNumberSubmit}>
-                    Page number: {this.state.pageId} 
-                    <input type="number" id="pageNumber" onChange={this.handleChange} className="center"></input>
-                    <button className="btn-small waves-effect blue">Submit</button>
+                    <label className="mb-0 mr-sm-0 top-buffer">Page number: {this.state.pageId}</label> 
+                    <input type="number" id="pageNumber" onChange={this.handleChange} className="form-control"></input>
+                    <button className="btn btn-dark">Submit</button>
                 </form>
-                <button className="btn-large waves-effect" id="decrement" onClick={this.decrementPage}>
+                <button className="btn btn-outline-primary btn-lg" id="decrement" onClick={this.decrementPage}>
                     Previous Page
                 </button>
-                <button className="btn-large waves-effect" id="increment" onClick={this.incrementPage}
-                >
+                <button className="btn btn-outline-secondary btn-lg" id="increment" onClick={this.incrementPage}>
                     Next Page
                 </button>
             </div>
