@@ -62,7 +62,7 @@ class Homepage extends Component {
         return (
             <div className="homepage container-fluid top-buffer" id="fadein">
                 <form className="center form-check-inline" onSubmit={this.handleQuerySubmit}>
-                    <label className="mb-0 mr-sm-2">Search:</label>
+                    <label className="mb-0 mr-sm-2 text-white">Search:</label>
                     <input type="text" id="searchText" className="form-control"></input>
                     <button className="btn btn-dark">Submit</button>
                 </form>

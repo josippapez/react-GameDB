@@ -85,16 +85,15 @@ code {
 
 #card{
   z-index: 0;
-  height: 350px;
 }
 #bg-image{
   z-index: -1;
   position: absolute;
-  top: 165px;
+  top: 50%;
   left: 0px;
   width: 100%;
-  height: 185px;
-  filter: blur(20px);
+  height: 50%;
+  filter: blur(15px);
   transform: rotate(180deg);
   transform: scaleY(-1);
 }

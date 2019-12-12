@@ -8,7 +8,7 @@ function GameList({ games }) {
         {games.map(game => {
           return (
             <div className="col top-buffer" key={game.id}>
-              <Link to={"/game/" + game.id}>
+              <Link to={"/game/" + game.id} className="text-decoration-none">
                 <GamesSummary game={game} />
               </Link>
             </div>
