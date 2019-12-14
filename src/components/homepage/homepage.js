@@ -64,7 +64,7 @@ class Homepage extends Component {
                 <form className="center form-check-inline" onSubmit={this.handleQuerySubmit}>
                     <label className="mb-0 mr-sm-2 text-white">Search:</label>
                     <input type="text" id="searchText" className="form-control"></input>
-                    <button className="btn btn-dark">Submit</button>
+                    <button className="btn btn-dark mx-2">Submit</button>
                 </form>
                 {(searchResults.results && <GameList games={searchResults.results}/>)||(games.results && <GameList games={games.results} />)}
                 <form className="center" onSubmit={this.handlePageNumberSubmit}>

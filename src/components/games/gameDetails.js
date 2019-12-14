@@ -26,6 +26,15 @@ class GameDetails extends Component {
             )
         }
     }
+    metacritic(game){
+        if(game.metacritic!=null){
+            return(
+                <div className="square text-white font-weight-bold">
+                    <label>{game.metacritic}</label>
+                </div>
+            )
+        }
+    }
     developers(game){
         if(game.developers && game.developers.length>0){
             return(
@@ -65,12 +74,13 @@ class GameDetails extends Component {
                             {this.checkForVideo(game)}
                         </div>
                     </div>
-                    <div className="detail-card-content col">
-                        <p className="detail-card-title font-weight-bold">{game.name}</p>
-                        <div className="square text-white font-weight-bold"><label>{game.metacritic}</label></div>
+                    <div className="detail-card-content col jumbotron">
+                        <p className="detail-card-title font-weight-bold display-4">{game.name}</p>
+                            {this.metacritic(game)}
                         <div id="alternative-name">
                             {this.alternativeNames(game)}
                         </div>
+                        <hr className="my-4"/>
                         <p>Released: {game.released}</p>
                         <div className="container text-justify" id="detail-card-description">
                                 {game.description_raw}
