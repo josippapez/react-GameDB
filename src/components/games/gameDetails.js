@@ -39,6 +39,19 @@ class GameDetails extends Component {
             )
         }
     }
+    ratings(game){
+        if(game.ratings && game.ratings.length>0){
+            return(
+                <p>
+                {game.ratings.map((rating)=>{
+                    return(
+                        <li className="list-group-item text-capitalize p-2" key={rating.id}>{rating.title}<br></br>Rated: {rating.count} || {rating.percent}%</li>
+                    )
+                })}
+                </p>
+            )
+        }
+    }
     render(){
         let { game } = this.props;
         return (
@@ -65,6 +78,10 @@ class GameDetails extends Component {
                         <div className="developers font-weight-bold top-buffer">
                             {this.developers(game)}
                         </div>
+                        <p className="ratings text-left">Ratings:</p>
+                        <ul className="ratings list-group float-left list-unstyled">
+                            {this.ratings(game)}
+                        </ul>
                     </div>
                 </div>
             </div>

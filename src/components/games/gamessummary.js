@@ -2,7 +2,7 @@ import React from 'react'
 
 function GamesSummary({game}) {
     return (
-        <div className="card" id="card">
+        <div className="card shadow-lg" id="card">
                 <div className="card-image-top z-depth-5">
                     <img src={game.background_image} alt={game.slug}/>
                 </div>

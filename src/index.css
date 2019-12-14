@@ -45,19 +45,8 @@ code {
   background: white;
   height: fit-content;
 }
-.detail-card-image{
-  grid-row-start: 1;
-  grid-row-end: 1;
-  grid-column-start: 1;
-  grid-column-end: 1;
-}
 .detail-video-clip video{
   width: 100%;
-}
-.detail-card-content{
-  grid-row-start: 1;
-  grid-column-start: 2;
-  grid-column-end: 2;
 }
 .detail-card-image img{
   width: 100%;
