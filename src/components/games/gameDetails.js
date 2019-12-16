@@ -6,14 +6,14 @@ class GameDetails extends Component {
     componentDidMount(){
         this.props.fetch(this.props.match.params.id);
     }
-    checkForVideo(game){
+    checkForVideo=(game)=>{
         if(game.clip && game.clip!=null){
             return(
                 <video controls src={game.clip.clip} muted/>
             )
         }
     }
-    alternativeNames(game){
+    alternativeNames=(game)=>{
         if(game.alternative_names && game.alternative_names.length>0){
             return(
             <p>Alternative names:
@@ -26,7 +26,7 @@ class GameDetails extends Component {
             )
         }
     }
-    metacritic(game){
+    metacritic=(game)=>{
         if(game.metacritic!=null){
             return(
                 <div className="square text-white font-weight-bold" id="metacritic">
@@ -35,7 +35,7 @@ class GameDetails extends Component {
             )
         }
     }
-    developers(game){
+    developers=(game)=>{
         if(game.developers && game.developers.length>0){
             return(
             <p>Developers:
@@ -48,7 +48,7 @@ class GameDetails extends Component {
             )
         }
     }
-    ratings(game){
+    ratings=(game)=>{
         if(game.ratings && game.ratings.length>0){
             return(
                 <p>
@@ -61,14 +61,14 @@ class GameDetails extends Component {
             )
         }
     }
-    animateMetacritic(game){
-        setTimeout(() => {
+    animateMetacritic=(game)=>{
+        setTimeout(()=>{
             if(game.metacritic!=null){
                 var element = document.getElementById('metacritic');
                 element.style.setProperty('--width',`${game.metacritic}%`);
                 console.log(element);      
             }
-          }, 2000);
+        },2000);
     }
     render(){
         let { game } = this.props;

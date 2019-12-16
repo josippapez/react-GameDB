@@ -62,8 +62,8 @@ code {
   background-color: rgb(44, 160, 54);
   top: 0%;
   left: 0%;
-  -webkit-animation: filling 2s;
-  animation: filling 2s;
+  -webkit-animation: filling 4s;
+  animation: filling 4s;
   animation-fill-mode: forwards;
 }
 .square label{
