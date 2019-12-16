@@ -29,7 +29,7 @@ class GameDetails extends Component {
     metacritic(game){
         if(game.metacritic!=null){
             return(
-                <div className="square text-white font-weight-bold">
+                <div className="square text-white font-weight-bold" id="metacritic">
                     <label>{game.metacritic}</label>
                 </div>
             )
@@ -61,6 +61,15 @@ class GameDetails extends Component {
             )
         }
     }
+    animateMetacritic(game){
+        setTimeout(() => {
+            if(game.metacritic!=null){
+                var element = document.getElementById('metacritic');
+                element.style.setProperty('--width',`${game.metacritic}%`);
+                console.log(element);      
+            }
+          }, 2000);
+    }
     render(){
         let { game } = this.props;
         return (
@@ -77,6 +86,7 @@ class GameDetails extends Component {
                     <div className="detail-card-content col jumbotron">
                         <p className="detail-card-title font-weight-bold display-4">{game.name}</p>
                             {this.metacritic(game)}
+                            {this.animateMetacritic(game)}
                         <div id="alternative-name">
                             {this.alternativeNames(game)}
                         </div>

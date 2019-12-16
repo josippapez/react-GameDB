@@ -58,16 +58,22 @@ code {
 .square {
   position: absolute;
   height: 50px;
-  width: 50px;
   border-radius: 8px;
   background-color: rgb(44, 160, 54);
   top: 0%;
-  right: 0%;
+  left: 0%;
+  -webkit-animation: filling 2s;
+  animation: filling 2s;
+  animation-fill-mode: forwards;
 }
 .square label{
   position: absolute;
   top: 25%;
-  left: 32%;
+  left: 50%;
+}
+@keyframes filling{
+  from{width: 0%;}
+  to{width: var(--width);}
 }
 
 
