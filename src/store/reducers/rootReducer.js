@@ -22,11 +22,14 @@ const rootReducer= (state=initState,action) =>{
             console.log('Fetch games error', action.err)
             return state;
         case 'FETCH_SEARCHED_GAME':
-                console.log('Fetched searched game', action.games)
-                return {...state, searchResults:action.games, games:[]};
+            console.log('Fetched searched game', action.games)
+            return {...state, searchResults:action.games, games:[]};
         case 'FETCH_SEARCHED_GAME_ERROR':
-                console.log('Fetch searched games error', action.err)
-                return state;
+            console.log('Fetch searched games error', action.err)
+            return state;
+        case 'RESET_DATA':
+            console.log("Data reset",action);
+            return {games:[],game:{},searchResults:[]}
         default:
             return state;
     }

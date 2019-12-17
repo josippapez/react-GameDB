@@ -13,6 +13,10 @@ class GameDetails extends Component {
             )
         }
     }
+    componentWillUnmount(){
+        this.props.reset();
+        console.log(this.props);
+    }
     alternativeNames=(game)=>{
         if(game.alternative_names && game.alternative_names.length>0){
             return(
@@ -27,13 +31,23 @@ class GameDetails extends Component {
         }
     }
     metacritic=(game)=>{
+        setTimeout(()=>{
+            if(game.metacritic!=null){
+                var element = document.getElementById('metacritic');
+                element.classList.add("animation");
+                element.style.setProperty('--width',`${game.metacritic}%`); 
+                element=document.getElementById('metacritic-number');
+                element.classList.remove("invisible");    
+            }
+        },1000);
         if(game.metacritic!=null){
             return(
                 <div className="square text-white font-weight-bold" id="metacritic">
-                    <label>{game.metacritic}</label>
+                    <label className="invisible" id="metacritic-number">{game.metacritic}</label>
                 </div>
             )
         }
+       
     }
     developers=(game)=>{
         if(game.developers && game.developers.length>0){
@@ -61,15 +75,6 @@ class GameDetails extends Component {
             )
         }
     }
-    animateMetacritic=(game)=>{
-        setTimeout(()=>{
-            if(game.metacritic!=null){
-                var element = document.getElementById('metacritic');
-                element.style.setProperty('--width',`${game.metacritic}%`);
-                console.log(element);      
-            }
-        },2000);
-    }
     render(){
         let { game } = this.props;
         return (
@@ -86,7 +91,6 @@ class GameDetails extends Component {
                     <div className="detail-card-content col jumbotron">
                         <p className="detail-card-title font-weight-bold display-4">{game.name}</p>
                             {this.metacritic(game)}
-                            {this.animateMetacritic(game)}
                         <div id="alternative-name">
                             {this.alternativeNames(game)}
                         </div>
@@ -116,7 +120,8 @@ const mapStateToProps = state => {
   
   const mapStateToDispatch = dispatch => {
     return {
-      fetch: (gameId) => dispatch(fetchGameDetail(gameId))
+      fetch: (gameId) => dispatch(fetchGameDetail(gameId)),
+      reset: ()=>dispatch({type:'RESET_DATA'})
     };
   };
 export default connect(mapStateToProps, mapStateToDispatch)(GameDetails);
