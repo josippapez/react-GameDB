@@ -25,9 +25,12 @@ code {
 }
 .homepage form{
   position:center;
-  width: 20%;
   margin:auto;
   margin-bottom: 20px;
+}
+.homepage #pageNumber{
+  width: 20%;
+  margin: auto;
 }
 .top-buffer{
   margin-top:25px;

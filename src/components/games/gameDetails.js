@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { fetchGameDetail } from "../../store/actions/gamesActions";
 
 class GameDetails extends Component {
+    state={
+        timer:null
+    }
     componentDidMount(){
         this.props.fetch(this.props.match.params.id);
     }
@@ -15,7 +18,7 @@ class GameDetails extends Component {
     }
     componentWillUnmount(){
         this.props.reset();
-        console.log(this.props);
+        clearTimeout(this.timer);
     }
     alternativeNames=(game)=>{
         if(game.alternative_names && game.alternative_names.length>0){
@@ -31,7 +34,7 @@ class GameDetails extends Component {
         }
     }
     metacritic=(game)=>{
-        setTimeout(()=>{
+        this.timer=setTimeout(()=>{
             if(game.metacritic!=null){
                 var element = document.getElementById('metacritic');
                 element.classList.add("animation");
@@ -47,7 +50,6 @@ class GameDetails extends Component {
                 </div>
             )
         }
-       
     }
     developers=(game)=>{
         if(game.developers && game.developers.length>0){
@@ -89,15 +91,15 @@ class GameDetails extends Component {
                         </div>
                     </div>
                     <div className="detail-card-content col jumbotron">
+                        {this.metacritic(game)}
                         <p className="detail-card-title font-weight-bold display-4">{game.name}</p>
-                            {this.metacritic(game)}
                         <div id="alternative-name">
                             {this.alternativeNames(game)}
                         </div>
                         <hr className="my-4"/>
                         <p>Released: {game.released}</p>
                         <div className="container text-justify" id="detail-card-description">
-                                {game.description_raw}
+                            {game.description_raw}
                         </div>
                         <div className="developers font-weight-bold top-buffer">
                             {this.developers(game)}
