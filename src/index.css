@@ -65,7 +65,6 @@ code {
   background-color: rgb(44, 160, 54);
   top: 0%;
   left: 0%;
-  
 }
 .animation{
   -webkit-animation: filling 2s;
@@ -78,11 +77,26 @@ code {
   top: 25%;
   left: 50%;
 }
+#exceptional{
+  background-color: greenyellow;
+  margin-right: 0;
+}
+#recommended{
+  margin-right: 0;
+  background-color: rgb(2,132,244);
+}
+#meh{
+  margin-right: 0;
+  background-color: brown;
+}
+#skip{
+  margin-right: 0;
+  background-color: red;
+}
 @keyframes filling{
   from{width: 0%;}
   to{width: var(--width);}
 }
-
 
 
 #card{

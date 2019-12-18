@@ -4,7 +4,11 @@ import { fetchGameDetail } from "../../store/actions/gamesActions";
 
 class GameDetails extends Component {
     state={
-        timer:null
+        timer:null,
+        metacriticAnimation:false,
+        ratingsAnimation:false,
+        metacriticVisiblitly:false,
+        ratingsVisibility:false
     }
     componentDidMount(){
         this.props.fetch(this.props.match.params.id);
@@ -18,7 +22,6 @@ class GameDetails extends Component {
     }
     componentWillUnmount(){
         this.props.reset();
-        clearTimeout(this.timer);
     }
     alternativeNames=(game)=>{
         if(game.alternative_names && game.alternative_names.length>0){
@@ -33,23 +36,13 @@ class GameDetails extends Component {
             )
         }
     }
-    metacritic=(game)=>{
-        this.timer=setTimeout(()=>{
-            if(game.metacritic!=null){
-                var element = document.getElementById('metacritic');
-                element.classList.add("animation");
-                element.style.setProperty('--width',`${game.metacritic}%`); 
-                element=document.getElementById('metacritic-number');
-                element.classList.remove("invisible");    
-            }
+    metacritic=()=>{
+        setTimeout(()=>{
+            this.setState({
+                metacriticAnimation:true,
+                metacriticVisiblitly:true
+            })
         },1000);
-        if(game.metacritic!=null){
-            return(
-                <div className="square text-white font-weight-bold" id="metacritic">
-                    <label className="invisible" id="metacritic-number">{game.metacritic}</label>
-                </div>
-            )
-        }
     }
     developers=(game)=>{
         if(game.developers && game.developers.length>0){
@@ -64,24 +57,23 @@ class GameDetails extends Component {
             )
         }
     }
-    ratings=(game)=>{
-        if(game.ratings && game.ratings.length>0){
-            return(
-                <p>
-                {game.ratings.map((rating)=>{
-                    return(
-                        <li className="list-group-item text-capitalize p-2" key={rating.id}>{rating.title}<br></br>Rated: {rating.count} || {rating.percent}%</li>
-                    )
-                })}
-                </p>
-            )
-        }
+    ratings=()=>{
+        setTimeout(()=>{
+            this.setState({
+                ratingsAnimation:true,
+                ratingsVisibility:true
+            })
+        },1000);
     }
     render(){
         let { game } = this.props;
+        let gridStyle="row row-cols-2";
+        if( window.innerWidth<=800){
+            gridStyle="row row-cols-1";
+        }
         return (
             <div className="detail-card container-xl-1" id="fadein">
-                <div className="row row-cols-2">
+                <div className={gridStyle}>
                     <div className="col">
                         <div className="detail-card-image">
                             <img src={game.background_image} alt={game.slug}/>
@@ -91,8 +83,14 @@ class GameDetails extends Component {
                         </div>
                     </div>
                     <div className="detail-card-content col jumbotron">
-                        {this.metacritic(game)}
-                        <p className="detail-card-title font-weight-bold display-4">{game.name}</p>
+                        {game.metacritic &&
+                            <div metacritic={this.metacritic()} 
+                            style={{'--width':game.metacritic+'%'}} 
+                            className={"square text-white font-weight-bold"+(this.state.metacriticAnimation ? (" animation") : (""))}>
+                                <label className={this.state.metacriticVisiblitly ? ("") : ("invisible")}>{game.metacritic}</label>
+                            </div>
+                        }
+                        <p className="detail-card-title font-weight-bold display-4 top-buffer">{game.name}</p>
                         <div id="alternative-name">
                             {this.alternativeNames(game)}
                         </div>
@@ -104,9 +102,20 @@ class GameDetails extends Component {
                         <div className="developers font-weight-bold top-buffer">
                             {this.developers(game)}
                         </div>
-                        <p className="ratings text-left">Ratings:</p>
-                        <ul className="ratings list-group float-left list-unstyled">
-                            {this.ratings(game)}
+                        <ul className={"ratings list-group" + (this.state.ratingsVisibility ? ("") : (" invisible"))}>
+                            <p className="ratings text-left">Ratings:</p>
+                            {game.ratings && game.ratings.length>0 && game.ratings.map((rating)=>{
+                                return(
+                                    <li  ratings={this.ratings()} 
+                                    style={{'--width':rating.percent+'%'}} 
+                                    className={"list-group-item text-capitalize p-2"+(this.state.ratingsAnimation ? (" animation"): (""))} 
+                                    key={rating.id} 
+                                    id={rating.title}>
+                                        {rating.title}-{rating.percent}%
+                                    </li>
+                                    )
+                                })
+                            }
                         </ul>
                     </div>
                 </div>

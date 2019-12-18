@@ -3,7 +3,7 @@ import GamesSummary from "./gamessummary";
 import { Link } from "react-router-dom";
 function GameList({ games }) {
   let gridStyle="col top-buffer";
-  if( window.innerWidth<=800) gridStyle="col-5 top-buffer";
+  if( window.innerWidth<=800) gridStyle="col-12 top-buffer";
   return (
     <div className="game-list container">
       <div className="row row-cols-4">
