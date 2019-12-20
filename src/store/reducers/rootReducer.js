@@ -5,7 +5,9 @@ const initState={
         {id: '3',title:'Third title',content:"idjosd"}
     ],
     game:{},
-    searchResults:[]
+    searchResults:[],
+    previousPage:null,
+    previousGameName:null
 }
 const rootReducer= (state=initState,action) =>{
     switch (action.type) {
@@ -27,9 +29,15 @@ const rootReducer= (state=initState,action) =>{
         case 'FETCH_SEARCHED_GAME_ERROR':
             console.log('Fetch searched games error', action.err)
             return state;
+        case 'RESET_GAME_DATA':
+            console.log("Data reset",action);
+            return {...state,game:{}}
         case 'RESET_DATA':
             console.log("Data reset",action);
-            return {games:[],game:{},searchResults:[]}
+            return {games:[],game:{},searchResults:[],previousGameName:null,previousPage:null}
+        case 'GET_PREVIOUS_PAGE':
+            console.log("Previous page:",action);
+            return {...state,previousPage:action.previousPage,previousGameName:action.previousGameName}
         default:
             return state;
     }

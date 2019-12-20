@@ -1,5 +1,17 @@
 import Axios from "axios";
 
+export var previousPage=null;
+export var previousGameName=null;
+
+export const savePreviousPage=(pageId,gameName)=>{
+    return(dispatch,getState)=>{
+        previousPage=pageId;
+        previousGameName=gameName;
+        dispatch({type:'GET_PREVIOUS_PAGE',previousPage,previousGameName});
+        console.log(previousPage,previousGameName);
+        
+    }
+}
 
 export const fetchGames = (pageId)=>{
     return (dispatch,getState)=>{

@@ -21,7 +21,7 @@ class GameDetails extends Component {
         }
     }
     componentWillUnmount(){
-        this.props.reset();
+        this.props.resetGame();
     }
     alternativeNames=(game)=>{
         if(game.alternative_names && game.alternative_names.length>0){
@@ -96,7 +96,7 @@ class GameDetails extends Component {
                         </div>
                         <hr className="my-4"/>
                         <p>Released: {game.released}</p>
-                        <div className="container text-justify" id="detail-card-description">
+                        <div className="container text-justify">
                             {game.description_raw}
                         </div>
                         <div className="developers font-weight-bold top-buffer">
@@ -106,7 +106,7 @@ class GameDetails extends Component {
                             <p className="ratings text-left">Ratings:</p>
                             {game.ratings && game.ratings.length>0 && game.ratings.map((rating)=>{
                                 return(
-                                    <li  ratings={this.ratings()} 
+                                    <li ratings={this.ratings()} 
                                     style={{'--width':rating.percent+'%'}} 
                                     className={"list-group-item text-capitalize p-2"+(this.state.ratingsAnimation ? (" animation"): (""))} 
                                     key={rating.id} 
@@ -132,7 +132,7 @@ const mapStateToProps = state => {
   const mapStateToDispatch = dispatch => {
     return {
       fetch: (gameId) => dispatch(fetchGameDetail(gameId)),
-      reset: ()=>dispatch({type:'RESET_DATA'})
+      resetGame: ()=>dispatch({type:'RESET_GAME_DATA'})
     };
   };
 export default connect(mapStateToProps, mapStateToDispatch)(GameDetails);

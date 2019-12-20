@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import GameList from "../games/gameslist";
-import { fetchGames, fetchGame } from "../../store/actions/gamesActions";
+import { fetchGames, fetchGame, savePreviousPage } from "../../store/actions/gamesActions";
 
 class Homepage extends Component {
     state={
@@ -18,6 +18,14 @@ class Homepage extends Component {
             button.removeAttribute("disabled");
         }
     }
+    componentWillMount(){
+        if(this.props.previousPage!=null ||this.props.previousGameName!=null){
+            this.setState({
+                pageId:this.props.previousPage,
+                gameName:this.props.previousGameName
+            },()=>{this.componentDidMount()})
+        }
+    }
     componentDidMount() {
         if(this.state.gameName!==""){
             this.props.fetchFromSearch(this.state.gameName,this.state.pageId);
@@ -26,6 +34,9 @@ class Homepage extends Component {
             this.props.fetch(this.state.pageId);
         }
         this.checkPageNumberForButtons();
+    }
+    componentWillUnmount(){
+        this.props.setPreviousPage(this.state.pageId,this.state.gameName);
     }
     incrementPage=()=>{
         this.setState({
@@ -85,14 +96,18 @@ class Homepage extends Component {
 const mapStateToProps = (state) => {
   return {
     games: state.games,
-    searchResults: state.searchResults
+    searchResults: state.searchResults,
+    previousPage: state.previousPage,
+    previousGameName:state.previousGameName
   };
 };
 
 const mapStateToDispatch = (dispatch) => {
   return {
     fetch: (pageId) => dispatch(fetchGames(pageId)),
-    fetchFromSearch: (gameName, pageId) => dispatch(fetchGame(gameName,pageId))
+    fetchFromSearch: (gameName, pageId) => dispatch(fetchGame(gameName,pageId)),
+    setPreviousPage: (previousPage,gameName)=>dispatch(savePreviousPage(previousPage,gameName)),
+    resetData: ()=>dispatch({type:'RESET_DATA'})
   };
 };
 

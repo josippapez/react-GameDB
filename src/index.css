@@ -55,9 +55,6 @@ code {
   width: 100%;
   height: auto;
 }
-#detail-card-description{
-  z-index: 1;
-}
 .square {
   position: absolute;
   height: 50px;
