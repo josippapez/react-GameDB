@@ -106,8 +106,7 @@ const mapStateToDispatch = (dispatch) => {
   return {
     fetch: (pageId) => dispatch(fetchGames(pageId)),
     fetchFromSearch: (gameName, pageId) => dispatch(fetchGame(gameName,pageId)),
-    setPreviousPage: (previousPage,gameName)=>dispatch(savePreviousPage(previousPage,gameName)),
-    resetData: ()=>dispatch({type:'RESET_DATA'})
+    setPreviousPage: (previousPage,gameName)=>dispatch(savePreviousPage(previousPage,gameName))
   };
 };
 
