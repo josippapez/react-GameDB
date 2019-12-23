@@ -74,7 +74,7 @@ class Homepage extends Component {
             <div className="homepage container-fluid top-buffer" id="fadein">
                 <form className="center form-check-inline" onSubmit={this.handleQuerySubmit}>
                     <label className="mb-0 mr-sm-2 text-white">Search:</label>
-                    <input type="text" id="searchText" className="form-control"></input>
+                    <input type="text" id="searchText" className="form-control" placeholder={(this.state.gameName!=="" ? ("Press Enter key here to reset search") : (""))}></input>
                     <button className="btn btn-dark mx-2">Submit</button>
                 </form>
                 {(searchResults.results && <GameList games={searchResults.results}/>)||(games.results && <GameList games={games.results} />)}

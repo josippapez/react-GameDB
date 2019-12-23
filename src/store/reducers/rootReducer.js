@@ -30,7 +30,7 @@ const rootReducer= (state=initState,action) =>{
             console.log('Fetch searched games error', action.err)
             return state;
         case 'RESET_GAME_DATA':
-            console.log("Data reset",action);
+            console.log("Game data reset",action);
             return {...state,game:{}}
         case 'RESET_DATA':
             console.log("Data reset",action);
