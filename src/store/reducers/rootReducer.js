@@ -9,7 +9,7 @@ const initState={
     previousPage:null,
     previousGameName:null
 }
-const rootReducer= (state=initState,action) =>{
+const games= (state=initState,action) =>{
     switch (action.type) {
         case 'FETCH_GAMES':
             console.log('Fetched games', action.games)
@@ -18,7 +18,6 @@ const rootReducer= (state=initState,action) =>{
             console.log('Fetch games error', action.err)
             return state;
         case 'FETCH_GAME':
-            console.log('Fetched game', action.games)
             return {...state, game:action.games};
         case 'FETCH_GAME_ERROR':
             console.log('Fetch games error', action.err)
@@ -43,4 +42,4 @@ const rootReducer= (state=initState,action) =>{
     }
 }
 
-export default rootReducer;
+export default games;

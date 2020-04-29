@@ -1,0 +1,17 @@
+#game-details-modal {
+    height: 100vh;
+    top: 0;
+    right: 12.5%;
+}
+
+#game-details-close-icon {
+    width: 30px;
+    height: 32px;
+    position: absolute;
+    top: 50px;
+    right: 85px;
+    background: white;
+    display: flex;
+    border: medium solid;
+    border-radius: 4px;
+}

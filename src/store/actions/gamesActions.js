@@ -1,5 +1,7 @@
 import Axios from "axios";
 
+import { SHOW_GAME_DETAILS_MODAL } from "../actionTypes/gamesActions";
+
 export var previousPage=null;
 export var previousGameName=null;
 
@@ -8,8 +10,6 @@ export const savePreviousPage=(pageId,gameName)=>{
         previousPage=pageId;
         previousGameName=gameName;
         dispatch({type:'GET_PREVIOUS_PAGE',previousPage,previousGameName});
-        console.log(previousPage,previousGameName);
-        
     }
 }
 
@@ -44,3 +44,13 @@ export const fetchGame = (gameName,pageId)=>{
         })
     }
 }
+
+export const resetGame = () => {
+    return (dispatch,getState)=>{
+        dispatch({type:'RESET_GAME_DATA'})
+    }
+}
+
+export const showGameDetailsModal = () => ({
+    type: SHOW_GAME_DETAILS_MODAL
+});
