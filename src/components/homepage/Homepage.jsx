@@ -99,7 +99,10 @@ class Homepage extends Component {
     return (
       <div className="homepage container-fluid top-buffer" id="fadein">
         {this.props.gameDetailsModal && (
-          <GameDetails id={this.state.gameId} gameDetailsModal={this.props.gameDetailsModal}/>
+          <GameDetails
+            id={this.state.gameId}
+            gameDetailsModal={this.props.gameDetailsModal}
+          />
         )}
         <form
           className="center form-check-inline"

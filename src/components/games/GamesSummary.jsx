@@ -2,11 +2,14 @@ import React from "react";
 
 function GamesSummary(props) {
   return (
-    <div className="card shadow-lg" id="card"
-        onClick={() => {
-            props.setGameToShow(props.game.id);
-            props.toggleGameDetailsModal();
-        }}>
+    <div
+      className="card shadow-lg"
+      id="card"
+      onClick={() => {
+        props.setGameToShow(props.game.id);
+        props.toggleGameDetailsModal();
+      }}
+    >
       <div className="card-image-top z-depth-5">
         <img src={props.game.background_image} alt={props.game.slug} />
       </div>
@@ -25,7 +28,11 @@ function GamesSummary(props) {
           </p>
         </div>
       </div>
-      <img src={props.game.background_image} alt={props.game.slug} id="bg-image" />
+      <img
+        src={props.game.background_image}
+        alt={props.game.slug}
+        id="bg-image"
+      />
     </div>
   );
 }
