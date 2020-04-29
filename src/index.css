@@ -4,15 +4,27 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-    background: rgb(2,132,244);
-    background: -moz-linear-gradient(149deg, rgba(2,132,244,1) 15%, rgba(60,71,55,0.050840404521183435) 100%);
-    background: -webkit-linear-gradient(149deg, rgba(2,132,244,1) 15%, rgba(60,71,55,0.050840404521183435) 100%);
-    background: linear-gradient(149deg, rgba(2,132,244,1) 15%, rgba(60,71,55,0.050840404521183435) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0284f4",endColorstr="#3c4737",GradientType=1);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+  background: rgb(2, 132, 244);
+  background: -moz-linear-gradient(
+    149deg,
+    rgba(2, 132, 244, 1) 15%,
+    rgba(60, 71, 55, 0.050840404521183435) 100%
+  );
+  background: -webkit-linear-gradient(
+    149deg,
+    rgba(2, 132, 244, 1) 15%,
+    rgba(60, 71, 55, 0.050840404521183435) 100%
+  );
+  background: linear-gradient(
+    149deg,
+    rgba(2, 132, 244, 1) 15%,
+    rgba(60, 71, 55, 0.050840404521183435) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0284f4",endColorstr="#3c4737",GradientType=1);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
-html{
+html {
   height: fit-content;
   min-height: 100%;
 }
@@ -20,86 +32,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.homepage{
+.homepage {
   width: 100%;
 }
-.homepage form{
-  position:center;
-  margin:auto;
+.homepage form {
+  position: center;
+  margin: auto;
   margin-bottom: 20px;
 }
-.homepage #pageNumber{
+.homepage #pageNumber {
   width: 20%;
   margin: auto;
 }
-.top-buffer{
-  margin-top:25px;
-}
-
-
-
-.detail-card{
-  padding: 3%;
+.top-buffer {
   margin-top: 25px;
-  margin-bottom: 5%;
-  margin-right:3%;
-  margin-left:3%;
-  border-radius: 25px;
-  background: white;
-  height: fit-content;
-}
-.detail-video-clip video{
-  width: 100%;
-}
-.detail-card-image img{
-  width: 100%;
-  height: auto;
-}
-.square {
-  position: absolute;
-  height: 50px;
-  border-radius: 8px;
-  background-color: rgb(44, 160, 54);
-  top: 0%;
-  left: 0%;
-}
-.animation{
-  -webkit-animation: filling 2s;
-  animation: filling 2s;
-  animation-fill-mode: forwards;
-  --width:0%;
-}
-.square label{
-  position: absolute;
-  top: 25%;
-  left: 50%;
-}
-#exceptional{
-  background-color: greenyellow;
-  margin-right: 0;
-}
-#recommended{
-  margin-right: 0;
-  background-color: rgb(2,132,244);
-}
-#meh{
-  margin-right: 0;
-  background-color: brown;
-}
-#skip{
-  margin-right: 0;
-  background-color: red;
-}
-@keyframes filling{
-  from{width: 0%;}
-  to{width: var(--width);}
 }
 
-
-#card{
+#card {
   z-index: 0;
 }
-#bg-image{
+#bg-image {
   z-index: -1;
   position: absolute;
   top: 50%;
@@ -110,27 +62,29 @@ code {
   transform: rotate(180deg);
   transform: scaleY(-1);
 }
-.card-image-top, .card-image-top img{
+.card-image-top,
+.card-image-top img {
   z-index: 1;
   width: 100%;
   height: 11em;
 }
-.card-title{
-  z-index:1;
+.card-title {
+  z-index: 1;
   color: black;
   mix-blend-mode: hard-light;
   filter: invert(1);
 }
-.card-content{
+.card-content {
   padding: 10px;
   z-index: 1;
   color: blue;
   mix-blend-mode: hard-light;
   filter: invert(1);
 }
-.card .card-content{
+.card .card-content {
   padding: 5px;
 }
-#increment , #decrement{
+#increment,
+#decrement {
   margin-bottom: 5em;
 }

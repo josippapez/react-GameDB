@@ -81,7 +81,7 @@ class GameDetails extends Component {
     }
     return (
       <div>
-        {this.props.game.id && (
+        {this.props.game.id  && (
           <Modal
             open={this.props.gameDetailsModal}
             center
