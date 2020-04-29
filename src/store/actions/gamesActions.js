@@ -2,52 +2,90 @@ import Axios from "axios";
 
 import { SHOW_GAME_DETAILS_MODAL } from "../actionTypes/gamesActions";
 
-export var previousPage=null;
-export var previousGameName=null;
+export var previousPage = null;
+export var previousGameName = null;
 
-export const savePreviousPage=(pageId,gameName)=>{
-    return(dispatch,getState)=>{
-        previousPage=pageId;
-        previousGameName=gameName;
-        dispatch({type:'GET_PREVIOUS_PAGE',previousPage,previousGameName});
+export const savePreviousPage = (pageId, gameName) => {
+    return (dispatch, getState) => {
+        previousPage = pageId;
+        previousGameName = gameName;
+        dispatch({ type: 'GET_PREVIOUS_PAGE', previousPage, previousGameName });
     }
 }
 
-export const fetchGames = (pageId)=>{
-    return (dispatch,getState)=>{
+export const fetchGames = (pageId) => {
+    return (dispatch, getState) => {
         Axios.get(`https://api.rawg.io/api/games?page=${pageId}`)
-        .then(res => dispatch({type:'FETCH_GAMES', games:res.data}))
-        .catch((err)=>{
-            dispatch({type:'FETCH_ERROR',err})
-        })
+            .then(res => dispatch({ type: 'FETCH_GAMES', games: res.data }))
+            .catch((err) => {
+                dispatch({ type: 'FETCH_ERROR', err })
+            })
     }
 }
 
-export const fetchGameDetail = (gameId)=>{
-    return (dispatch,getState)=>{
+export const fetchGameDetail = (gameId) => {
+    return (dispatch, getState) => {
         Axios.get(`https://api.rawg.io/api/games/${gameId}`)
-        .then(res => dispatch({type:'FETCH_GAME', games:res.data})
-        )
-        .catch((err)=>{
-            dispatch({type:'FETCH_GAME_ERROR',err})
-        })
+            .then(res => dispatch({ type: 'FETCH_GAME', games: res.data })
+            )
+            .catch((err) => {
+                dispatch({ type: 'FETCH_GAME_ERROR', err })
+            })
     }
 }
 
-export const fetchGame = (gameName,pageId)=>{
-    return (dispatch,getState)=>{
+export const fetchGame = (gameName, pageId) => {
+    return (dispatch, getState) => {
         Axios.get(`https://api.rawg.io/api/games?page_size=40&page=${pageId}&search=${gameName}`)
-        .then(res => dispatch({type:'FETCH_SEARCHED_GAME', games:res.data})
-        )
-        .catch((err)=>{
-            dispatch({type:'FETCH_SEARCHED_GAME_ERROR',err})
-        })
+            .then(res => dispatch({ type: 'FETCH_SEARCHED_GAME', games: res.data })
+            )
+            .catch((err) => {
+                dispatch({ type: 'FETCH_SEARCHED_GAME_ERROR', err })
+            })
     }
 }
 
 export const resetGame = () => {
-    return (dispatch,getState)=>{
-        dispatch({type:'RESET_GAME_DATA'})
+    return (dispatch, getState) => {
+        dispatch({ type: 'RESET_GAME_DATA' })
+    }
+}
+
+export const addToFavourites = (id) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET_FAVOURITE', id })
+    }
+}
+
+export const resetData = () => {
+    return (dispatch, getState) => {
+        Axios.get(`https://api.rawg.io/api/games?page=1`)
+            .then(res => dispatch({ type: 'RESET_DATA', games: res.data }))
+            .catch((err) => {
+                dispatch({ type: 'FETCH_ERROR', err })
+            })
+    }
+}
+
+export const fetchFavouriteDetails = (gameId) => {
+    return (dispatch, getState) => {
+        Axios.get(`https://api.rawg.io/api/games/${gameId}`)
+            .then(res => dispatch({ type: 'FETCH_FAVOURITE_GAME', favouriteGame: res.data })
+            )
+            .catch((err) => {
+                dispatch({ type: 'FETCH_GAME_ERROR', err })
+            })
+    }
+}
+
+export const setGameToShow = (gameId) => {
+    return (dispatch) => {
+        dispatch({ type: 'SET_GAME_TO_SHOW', gameId })
+    }
+}
+export const removeFavouriteDetails = () => {
+    return (dispatch) => {
+        dispatch({ type: 'RESET_FAVOURITE_DETAILS' })
     }
 }
 

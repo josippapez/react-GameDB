@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { resetData } from "../../store/actions/gamesActions";
+import Favourites from "../favourites/Favourites";
 
 class Navbar extends Component {
   handleReset = () => {
-    this.props.resetData();
+    this.props.actions.resetData();
   };
   render() {
     return (
@@ -17,16 +21,25 @@ class Navbar extends Component {
           >
             GameDB
           </Link>
+          <Link
+            to="/favourites"
+            className="navbar-toggler"
+          >
+            Favourites
+          </Link>
         </div>
       </nav>
     );
   }
 }
 
-const mapStateToDispatch = (dispatch) => {
-  return {
-    resetData: () => dispatch({ type: "RESET_DATA" }),
-  };
-};
+const mapStateToDispatch = (dispatch) => ({
+  actions: bindActionCreators(
+    {
+      resetData,
+    },
+    dispatch
+  ),
+});
 
 export default connect(null, mapStateToDispatch)(Navbar);

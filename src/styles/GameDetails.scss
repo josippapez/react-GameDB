@@ -1,6 +1,5 @@
 #game-details-modal {
   height: 100vh;
-  top: 0;
   right: 12.5%;
 }
 
@@ -9,11 +8,20 @@
   height: 35px;
   position: absolute;
   top: 20px;
+  margin-top: 2%;
   right: 130px;
   background: white;
   display: flex;
   border: medium solid;
   border-radius: 4px;
+}
+
+.react-responsive-modal-overlay {
+  padding-top: 3% !important;
+}
+
+.favourites-button {
+  position: absolute;
 }
 
 .detail-card {

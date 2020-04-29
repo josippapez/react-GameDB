@@ -6,6 +6,7 @@ import {
   fetchGame,
   savePreviousPage,
   showGameDetailsModal,
+  setGameToShow
 } from "../../store/actions/gamesActions";
 import { bindActionCreators } from "redux";
 import GameDetails from "../games/GameDetails";
@@ -14,7 +15,6 @@ class Homepage extends Component {
   state = {
     pageId: 1,
     gameName: "",
-    gameId: "",
   };
 
   checkPageNumberForButtons() {
@@ -91,16 +91,13 @@ class Homepage extends Component {
       () => this.componentDidMount()
     );
   };
-  setGameToShow = (gameId) => {
-    this.setState({ gameId });
-  };
   render() {
     var { games, searchResults } = this.props;
     return (
       <div className="homepage container-fluid top-buffer" id="fadein">
         {this.props.gameDetailsModal && (
           <GameDetails
-            id={this.state.gameId}
+            id={this.props.gameIdToShow}
             gameDetailsModal={this.props.gameDetailsModal}
           />
         )}
@@ -124,19 +121,19 @@ class Homepage extends Component {
         {(searchResults.results && (
           <GameList
             games={searchResults.results}
-            setGameToShow={this.setGameToShow}
+            setGameToShow={this.props.actions.setGameToShow}
             toggleGameDetailsModal={this.props.actions.showGameDetailsModal}
           />
         )) ||
           (games.results && (
             <GameList
               games={games.results}
-              setGameToShow={this.setGameToShow}
+              setGameToShow={this.props.actions.setGameToShow}
               toggleGameDetailsModal={this.props.actions.showGameDetailsModal}
             />
           ))}
         <form className="center" onSubmit={this.handlePageNumberSubmit}>
-          <label className="mb-0 mr-sm-0 top-buffer">
+          <label className="pageNumber mb-0 mr-sm-0 top-buffer">
             Page number: {this.state.pageId}
           </label>
           <input
@@ -148,14 +145,14 @@ class Homepage extends Component {
           <button className="btn btn-dark">Submit</button>
         </form>
         <button
-          className="btn btn-outline-primary btn-lg"
+          className="btn btn-outline-light btn-lg"
           id="decrement"
           onClick={this.decrementPage}
         >
           Previous Page
         </button>
         <button
-          className="btn btn-outline-secondary btn-lg"
+          className="btn btn-outline-light btn-lg"
           id="increment"
           onClick={this.incrementPage}
         >
@@ -172,6 +169,7 @@ const mapStateToProps = (state) => {
     previousPage: state.games.previousPage,
     previousGameName: state.games.previousGameName,
     gameDetailsModal: state.modals.showGameDetailsModal,
+    gameIdToShow: state.games.gameIdToShow
   };
 };
 
@@ -182,6 +180,7 @@ const mapStateToDispatch = (dispatch) => ({
       fetchGame,
       savePreviousPage,
       showGameDetailsModal,
+      setGameToShow
     },
     dispatch
   ),
