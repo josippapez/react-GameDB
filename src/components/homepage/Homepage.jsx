@@ -6,19 +6,24 @@ import {
   fetchGame,
   savePreviousPage,
   showGameDetailsModal,
-  setGameToShow
+  setGameToShow,
+  incrementPage,
+  decrementPage,
+  setPage,
 } from "../../store/actions/gamesActions";
 import { bindActionCreators } from "redux";
+
 import GameDetails from "../games/GameDetails";
 
 class Homepage extends Component {
   state = {
-    pageId: 1,
     gameName: "",
+    pageId: null,
   };
+  pageNumberInput = React.createRef();
 
   checkPageNumberForButtons() {
-    if (this.state.pageId === 1) {
+    if (this.props.pageId === 1) {
       var button = document.getElementById("decrement");
       button.setAttribute("disabled", "disabled");
     } else {
@@ -26,66 +31,41 @@ class Homepage extends Component {
       button.removeAttribute("disabled");
     }
   }
-  componentWillMount() {
-    if (
-      this.props.previousPage != null ||
-      this.props.previousGameName != null
-    ) {
-      this.setState(
-        {
-          pageId: this.props.previousPage,
-          gameName: this.props.previousGameName,
-        },
-        () => {
-          this.componentDidMount();
-        }
-      );
+  componentDidUpdate(nextProps) {
+    if (nextProps.pageId !== this.props.pageId) {
+      this.componentDidMount();
     }
   }
   componentDidMount() {
     if (this.state.gameName !== "") {
-      this.props.actions.fetchGame(this.state.gameName, this.state.pageId);
+      this.props.actions.fetchGame(this.state.gameName, this.props.pageId);
     } else {
-      this.props.actions.fetchGames(this.state.pageId);
+      this.props.actions.fetchGames(this.props.pageId);
     }
     this.checkPageNumberForButtons();
   }
   componentWillUnmount() {
-    this.props.actions.savePreviousPage(this.state.pageId, this.state.gameName);
+    this.props.actions.savePreviousPage(this.props.pageId, this.state.gameName);
   }
+
   incrementPage = () => {
-    this.setState(
-      {
-        pageId: this.state.pageId + 1,
-      },
-      () => this.componentDidMount()
-    );
+    this.props.actions.incrementPage();
   };
   decrementPage = () => {
-    this.setState(
-      {
-        pageId: this.state.pageId - 1,
-      },
-      () => this.componentDidMount()
-    );
-  };
-  handleChange = (e) => {
-    if (e.target.value > 0) {
-      this.setState({
-        pageId: e.target.valueAsNumber,
-      });
-    }
+    this.props.actions.decrementPage();
   };
   handlePageNumberSubmit = (e) => {
     e.preventDefault();
-    this.componentDidMount();
+    if (this.pageNumberInput.current) {
+      this.props.actions.setPage(this.pageNumberInput.current.valueAsNumber);
+    }
   };
   handleQuerySubmit = (e) => {
     e.preventDefault();
     var input = document.getElementById("searchText").value;
+    this.props.actions.setPage(1);
     this.setState(
       {
-        pageId: 1,
         gameName: input,
       },
       () => this.componentDidMount()
@@ -134,12 +114,12 @@ class Homepage extends Component {
           ))}
         <form className="center" onSubmit={this.handlePageNumberSubmit}>
           <label className="pageNumber mb-0 mr-sm-0 top-buffer">
-            Page number: {this.state.pageId}
+            Page number: {this.props.pageId}
           </label>
           <input
             type="number"
             id="pageNumber"
-            onChange={this.handleChange}
+            ref={this.pageNumberInput}
             className="form-control"
           ></input>
           <button className="btn btn-dark">Submit</button>
@@ -169,7 +149,8 @@ const mapStateToProps = (state) => {
     previousPage: state.games.previousPage,
     previousGameName: state.games.previousGameName,
     gameDetailsModal: state.modals.showGameDetailsModal,
-    gameIdToShow: state.games.gameIdToShow
+    gameIdToShow: state.games.gameIdToShow,
+    pageId: state.games.pageId,
   };
 };
 
@@ -180,7 +161,10 @@ const mapStateToDispatch = (dispatch) => ({
       fetchGame,
       savePreviousPage,
       showGameDetailsModal,
-      setGameToShow
+      setGameToShow,
+      incrementPage,
+      decrementPage,
+      setPage,
     },
     dispatch
   ),

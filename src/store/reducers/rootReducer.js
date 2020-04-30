@@ -10,10 +10,17 @@ const initState = {
     previousGameName: null,
     favourites: [],
     fetchedFavouriteGames: [],
-    gameIdToShow: null
+    gameIdToShow: null,
+    pageId: 1,
 }
 const games = (state = initState, action) => {
     switch (action.type) {
+        case 'DECREMENT_PAGE':
+            return { ...state, pageId: state.pageId - 1 }
+        case 'INCREMENT_PAGE':
+            return { ...state, pageId: state.pageId + 1 }
+        case 'SET_PAGE':
+            return { ...state, pageId: action.pageId }
         case 'FETCH_GAMES':
             return { ...state, games: action.games, searchResults: [] };
         case 'FETCH_ERROR':
@@ -29,7 +36,7 @@ const games = (state = initState, action) => {
         case 'RESET_GAME_DATA':
             return { ...state, game: {} }
         case 'RESET_DATA':
-            return { ...state, games: action.games }
+            return { ...state, searchResults: [], game: {}, games: action.games, pageId: 1 }
         case 'GET_PREVIOUS_PAGE':
             return { ...state, previousPage: action.previousPage, previousGameName: action.previousGameName }
         case 'SET_FAVOURITE':

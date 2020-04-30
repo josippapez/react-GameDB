@@ -2,8 +2,29 @@ import Axios from "axios";
 
 import { SHOW_GAME_DETAILS_MODAL } from "../actionTypes/gamesActions";
 
-export var previousPage = null;
-export var previousGameName = null;
+var previousPage = null;
+var previousGameName = null;
+
+export const incrementPage = () => {
+    return (dispatch, getState) => {
+        previousPage = getState().games.pageId;
+        dispatch({ type: 'INCREMENT_PAGE' });
+    }
+}
+
+export const decrementPage = () => {
+    return (dispatch, getState) => {
+        previousPage = getState().games.pageId;
+        dispatch({ type: 'DECREMENT_PAGE' });
+    }
+}
+
+export const setPage = (pageId) => {
+    return (dispatch, getState) => {
+        previousPage = getState().games.pageId;
+        dispatch({ type: 'SET_PAGE', pageId });
+    }
+}
 
 export const savePreviousPage = (pageId, gameName) => {
     return (dispatch, getState) => {

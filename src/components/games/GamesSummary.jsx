@@ -1,6 +1,7 @@
 import React from "react";
+import { LazyLoadImage, trackWindowScroll } from "react-lazy-load-image-component";
 
-function GamesSummary(props) {
+function GamesSummary(props, { scrollPosition }) {
   return (
     <div
       className="card shadow-lg"
@@ -11,7 +12,11 @@ function GamesSummary(props) {
       }}
     >
       <div className="card-image-top z-depth-5">
-        <img src={props.game.background_image} alt={props.game.slug} />
+        <LazyLoadImage
+          alt={props.game.slug}
+          scrollPosition={scrollPosition}
+          src={props.game.background_image}
+        />
       </div>
       <div className="card-body">
         <span className="card-title">
@@ -28,13 +33,14 @@ function GamesSummary(props) {
           </p>
         </div>
       </div>
-      <img
-        src={props.game.background_image}
-        alt={props.game.slug}
+      <LazyLoadImage
         id="bg-image"
+        alt={props.game.slug}
+        effect="blur"
+        src={props.game.background_image}
       />
     </div>
   );
 }
 
-export default GamesSummary;
+export default trackWindowScroll(GamesSummary);
