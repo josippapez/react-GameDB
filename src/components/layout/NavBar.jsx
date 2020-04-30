@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { resetData } from "../../store/actions/gamesActions";
-import Favourites from "../favourites/Favourites";
 
 class Navbar extends Component {
   handleReset = () => {
@@ -21,10 +20,7 @@ class Navbar extends Component {
           >
             GameDB
           </Link>
-          <Link
-            to="/favourites"
-            className="navbar-toggler"
-          >
+          <Link to="/favourites" className="navbar-toggler">
             Favourites
           </Link>
         </div>
