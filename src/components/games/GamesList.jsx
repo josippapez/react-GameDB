@@ -14,6 +14,8 @@ function GameList(props) {
                 game={game}
                 setGameToShow={props.setGameToShow}
                 toggleGameDetailsModal={props.toggleGameDetailsModal}
+                favourites={props.favourites}
+                removeFromFavourites={props.removeFromFavourites}
               />
             </div>
           );

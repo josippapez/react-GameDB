@@ -78,6 +78,13 @@ export const addToFavourites = (id) => {
     }
 }
 
+export const removeFromFavourites = (id) => {
+    console.log(id);
+    return (dispatch) => {
+        dispatch({ type: 'REMOVE_FAVOURITE', id })
+    }
+}
+
 export const resetData = () => {
     return (dispatch, getState) => {
         Axios.get(`https://api.rawg.io/api/games?page=1`)

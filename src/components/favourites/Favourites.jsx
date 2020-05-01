@@ -8,72 +8,45 @@ import {
   fetchFavouriteDetails,
   setGameToShow,
   removeFavouriteDetails,
+  removeFromFavourites,
 } from "../../store/actions/gamesActions";
 import GameDetails from "../games/GameDetails";
+import GameList from "../games/GamesList";
 
 class Favourites extends Component {
   componentDidMount() {
-    this.props.favourites.map((favourite) =>
-      this.props.actions.fetchFavouriteDetails(favourite)
-    );
-  }
-
-  componentWillUnmount() {
-    this.props.actions.removeFavouriteDetails();
+    if (!this.props.fetchedFavouriteGames.length) {
+      this.props.favourites.map((favourite) =>
+        this.props.actions.fetchFavouriteDetails(favourite)
+      );
+    } else if (this.props.fetchedFavouriteGames && this.props.fetchedFavouriteGames.length < this.props.favourites.length){
+      for (let index = 1; index <= (this.props.favourites.length - this.props.fetchedFavouriteGames.length); index++) {
+        this.props.actions.fetchFavouriteDetails(this.props.favourites[this.props.favourites.length-index]);
+      }
+    }
   }
 
   render() {
-    let gridStyle = "col-4 top-buffer";
-    if (window.innerWidth <= 800) gridStyle = "col-12 top-buffer";
     return (
-      <div className="game-list container">
-        <div className="row row-cols-4">
-          {this.props.fetchedFavouriteGames &&
-            this.props.fetchedFavouriteGames.map((game) => {
-              return (
-                <div className={gridStyle} key={game.id}>
-                  <div
-                    className="card shadow-lg"
-                    id="card"
-                    onClick={() => {
-                      this.props.actions.setGameToShow(game.id);
-                      this.props.actions.showGameDetailsModal();
-                    }}
-                  >
-                    <div className="card-image-top z-depth-5">
-                      <img src={game.background_image} alt={game.slug} />
-                    </div>
-                    <div className="card-body">
-                      <span className="card-title">
-                        <b>
-                          <b>{game.name}</b>
-                        </b>
-                      </span>
-                      <div className="card-content">
-                        <p>
-                          <b>{game.ratings_count} people rated</b>
-                        </p>
-                        <p>
-                          <b>Rating: {game.rating}</b>
-                        </p>
-                      </div>
-                    </div>
-                    <img
-                      src={game.background_image}
-                      alt={game.slug}
-                      id="bg-image"
-                    />
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-        {this.props.gameDetailsModal && (
-          <GameDetails
-            favourite
-            id={this.props.gameIdToShow}
-            gameDetailsModal={this.props.gameDetailsModal}
-          />
+      <div>
+        {this.props.fetchedFavouriteGames.length ===
+          this.props.favourites.length && (
+          <div>
+            <GameList
+              games={this.props.fetchedFavouriteGames}
+              setGameToShow={this.props.actions.setGameToShow}
+              toggleGameDetailsModal={this.props.actions.showGameDetailsModal}
+              favourites
+              removeFromFavourites={this.props.actions.removeFromFavourites}
+            />
+            {this.props.gameDetailsModal && (
+              <GameDetails
+                favourite
+                id={this.props.gameIdToShow}
+                gameDetailsModal={this.props.gameDetailsModal}
+              />
+            )}
+          </div>
         )}
       </div>
     );
@@ -98,6 +71,7 @@ const mapStateToDispatch = (dispatch) => ({
       fetchFavouriteDetails,
       setGameToShow,
       removeFavouriteDetails,
+      removeFromFavourites,
     },
     dispatch
   ),

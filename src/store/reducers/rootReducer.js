@@ -41,12 +41,14 @@ const games = (state = initState, action) => {
             return { ...state, previousPage: action.previousPage, previousGameName: action.previousGameName }
         case 'SET_FAVOURITE':
             return { ...state, favourites: [...new Set([...state.favourites, action.id])] }
+        case 'REMOVE_FAVOURITE':
+            return { ...state, favourites: state.favourites.filter(favourite => favourite !== action.id), fetchedFavouriteGames: state.fetchedFavouriteGames.filter(favourite => favourite.id !== action.id) }
         case 'FETCH_FAVOURITE_GAME':
-            return { ...state, fetchedFavouriteGames: [...state.fetchedFavouriteGames, action.favouriteGame] }
+            return { ...state, fetchedFavouriteGames: [...new Set([...state.fetchedFavouriteGames, action.favouriteGame])] }
         case 'SET_GAME_TO_SHOW':
             return { ...state, gameIdToShow: action.gameId }
         case 'RESET_FAVOURITE_DETAILS':
-            return { ...state, fetchedFavouriteGames: [] }
+            return { ...state, fetchedFavouriteGames: []     }
         default:
             return state;
     }
