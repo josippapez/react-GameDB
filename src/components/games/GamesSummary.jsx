@@ -1,63 +1,78 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   LazyLoadImage,
   trackWindowScroll,
 } from "react-lazy-load-image-component";
+import classNames from "classnames";
 
-function GamesSummary(props, { scrollPosition }) {
-  return (
-    <div>
-      {props.favourites && (
-        <button
-          className="btn-danger w-100"
-          onClick={() => {
-            props.removeFromFavourites(props.game.id);
-          }}
-        >
-          Remove from favourites
-        </button>
-      )}
-
+class GamesSummary extends Component {
+  state = { hovered: false };
+  render() {
+    return (
       <div
-        className="card shadow-lg"
-        id="card"
-        onClick={() => {
-          props.setGameToShow(props.game.id);
-          props.toggleGameDetailsModal();
+        onMouseEnter={() => {
+          this.setState({ hovered: !this.state.hovered });
+        }}
+        onMouseLeave={() => {
+          this.setState({ hovered: !this.state.hovered });
         }}
       >
-        <div className="card-image-top z-depth-5">
+        {this.props.favourites && (
+          <button
+            className="btn-danger w-100"
+            onClick={() => {
+              this.props.removeFromFavourites(this.props.game.id);
+            }}
+          >
+            Remove from favourites
+          </button>
+        )}
+
+        <div
+          className="card shadow-lg"
+          id="card"
+          onClick={() => {
+            this.props.setGameToShow(this.props.game.id);
+            this.props.toggleGameDetailsModal();
+          }}
+        >
+          <div className="card-image-top z-depth-5">
+            <LazyLoadImage
+              alt={this.props.game.slug}
+              scrollPosition={this.props.scrollPosition}
+              src={this.props.game.background_image}
+            />
+          </div>
+          <div
+            className={classNames({
+              "card-body": true,
+              hover: this.state.hovered,
+            })}
+          >
+            <span className="card-title">
+              <b>
+                <b>{this.props.game.name}</b>
+              </b>
+            </span>
+            <div className="card-content">
+              <p>
+                <b>{this.props.game.ratings_count} people rated</b>
+              </p>
+              <p>
+                <b>Rating: {this.props.game.rating}</b>
+              </p>
+            </div>
+          </div>
           <LazyLoadImage
-            alt={props.game.slug}
-            scrollPosition={scrollPosition}
-            src={props.game.background_image}
+            id="bg-image"
+            alt={this.props.game.slug}
+            effect="blur"
+            src={this.props.game.background_image}
           />
         </div>
-        <div className="card-body">
-          <div className="card-body-animation"></div>
-          <span className="card-title">
-            <b>
-              <b>{props.game.name}</b>
-            </b>
-          </span>
-          <div className="card-content">
-            <p>
-              <b>{props.game.ratings_count} people rated</b>
-            </p>
-            <p>
-              <b>Rating: {props.game.rating}</b>
-            </p>
-          </div>
-        </div>
-        <LazyLoadImage
-          id="bg-image"
-          alt={props.game.slug}
-          effect="blur"
-          src={props.game.background_image}
-        />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default trackWindowScroll(GamesSummary);

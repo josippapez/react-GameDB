@@ -74,11 +74,9 @@ code {
   mix-blend-mode: hard-light;
   filter: invert(1);
 }
-.card-body {
-  &:hover {
-    animation: example 0.5s;
-    animation-fill-mode: forwards;
-  }
+.hover {
+  animation: example 0.5s;
+  animation-fill-mode: forwards;
 }
 .card .card-content {
   padding: 5px;
@@ -89,6 +87,9 @@ code {
 }
 
 @keyframes example {
-  from {}
-  to { background-color: black;}
+  from {
+  }
+  to {
+    background-color: black;
+  }
 }
