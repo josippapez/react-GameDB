@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
+import "./Favourites.scss";
 import {
   fetchGames,
   fetchGame,
@@ -28,7 +30,7 @@ class Favourites extends Component {
 
   render() {
     return (
-      <div>
+      <div className="favourites">
         {this.props.fetchedFavouriteGames.length ===
           this.props.favourites.length && (
           <div>

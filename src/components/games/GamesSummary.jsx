@@ -9,12 +9,12 @@ function GamesSummary(props, { scrollPosition }) {
     <div>
       {props.favourites && (
         <button
-          className="btn-danger"
+          className="btn-danger w-100"
           onClick={() => {
             props.removeFromFavourites(props.game.id);
           }}
         >
-          X
+          Remove from favourites
         </button>
       )}
 
@@ -34,6 +34,7 @@ function GamesSummary(props, { scrollPosition }) {
           />
         </div>
         <div className="card-body">
+          <div className="card-body-animation"></div>
           <span className="card-title">
             <b>
               <b>{props.game.name}</b>

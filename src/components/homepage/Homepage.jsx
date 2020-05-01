@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import "../../index.scss";
 import GameList from "../games/GamesList";
 import {
   fetchGames,
@@ -11,8 +14,6 @@ import {
   decrementPage,
   setPage,
 } from "../../store/actions/gamesActions";
-import { bindActionCreators } from "redux";
-
 import GameDetails from "../games/GameDetails";
 
 class Homepage extends Component {
@@ -56,7 +57,7 @@ class Homepage extends Component {
   };
   handlePageNumberSubmit = (e) => {
     e.preventDefault();
-    if (this.pageNumberInput.current) {
+    if (this.pageNumberInput.current && this.pageNumberInput.current.valueAsNumber > 0) {
       this.props.actions.setPage(this.pageNumberInput.current.valueAsNumber);
     }
   };
@@ -74,7 +75,7 @@ class Homepage extends Component {
   render() {
     var { games, searchResults } = this.props;
     return (
-      <div className="homepage container-fluid top-buffer" id="fadein">
+      <div className="homepage container-fluid" id="fadein">
         {this.props.gameDetailsModal && (
           <GameDetails
             id={this.props.gameIdToShow}
