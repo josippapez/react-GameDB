@@ -25,4 +25,4 @@ yarn-error.log*
 .eslintrc.json
 /.firebase
 /dist
-fbconfig.js
+/src/config
