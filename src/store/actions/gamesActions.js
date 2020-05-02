@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-import { SHOW_GAME_DETAILS_MODAL } from "../actionTypes/gamesActions";
+import { SHOW_GAME_DETAILS_MODAL, SHOW_SIGN_IN_MODAL, SHOW_SIGN_UP_MODAL } from "../actionTypes/gamesActions";
 
 var previousPage = null;
 var previousGameName = null;
@@ -119,4 +119,12 @@ export const removeFavouriteDetails = () => {
 
 export const showGameDetailsModal = () => ({
     type: SHOW_GAME_DETAILS_MODAL
+});
+
+export const showSignInModal = () => ({
+    type: SHOW_SIGN_IN_MODAL
+});
+
+export const showSignUpModal = () => ({
+    type: SHOW_SIGN_UP_MODAL
 });

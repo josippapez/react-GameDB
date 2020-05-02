@@ -1,11 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import SignIn from "../authentication/SignIn";
+import SignUp from "../authentication/SignUp";
 
-function SignedOutLinks() {
+function SignedOutLinks(props) {
   return (
     <div>
-      <NavLink to="/signup" className="navbar-toggler mr-3">Sign up</NavLink>
-      <NavLink to="/signin" className="navbar-toggler">Log in</NavLink>
+      <button onClick={() => props.showSignUpModal()}>Sign up</button>
+      <button onClick={() => props.showSignInModal()}>Log in</button>
+      {props.signInModal && <SignIn />}
+      {props.signUpModal && <SignUp />}
     </div>
   );
 }

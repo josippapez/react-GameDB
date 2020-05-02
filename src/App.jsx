@@ -15,8 +15,6 @@ function App() {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route path="/favourites" component={Favourites} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
         </Switch>
       </div>
     </BrowserRouter>

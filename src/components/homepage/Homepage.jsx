@@ -15,6 +15,7 @@ import {
   setPage,
 } from "../../store/actions/gamesActions";
 import GameDetails from "../games/GameDetails";
+import SignIn from "../authentication/SignIn";
 
 class Homepage extends Component {
   state = {
@@ -150,12 +151,13 @@ const mapStateToProps = (state) => {
     previousPage: state.games.previousPage,
     previousGameName: state.games.previousGameName,
     gameDetailsModal: state.modals.showGameDetailsModal,
+    signInModal: state.modals.signInModal,
     gameIdToShow: state.games.gameIdToShow,
     pageId: state.games.pageId,
   };
 };
 
-const mapStateToDispatch = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(
     {
       fetchGames,
@@ -171,4 +173,4 @@ const mapStateToDispatch = (dispatch) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapStateToDispatch)(Homepage);
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

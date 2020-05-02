@@ -1,0 +1,45 @@
+@import "../../styles/colors";
+
+.login-Form {
+  height: calc(100vh - 56px);
+  background-color: $white;
+}
+
+.registration-Form {
+  height: calc(100vh - 56px);
+  background-color: $white;
+}
+
+.label,
+.h5 {
+  color: black;
+}
+
+.status-text {
+    border: 2px solid red;
+    border-radius:  8px;
+    color: red;
+}
+
+#login-form, #signUp-form {
+    background-color: #ffffff;
+    width: 758.67px;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    padding: 1.2rem; }
+
+#login-form-close-icon, #signUp-form-close-icon {
+  width: 25.46px;
+  height: 25.46px;
+  position: absolute;
+  top: 49px;
+  right: 42px;
+  color: #616262;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
