@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+import SignedInLinks from "./SignedInLinks";
+import SignedOutLinks from "./SignedOutLinks";
 import { resetData } from "../../store/actions/gamesActions";
 
 class Navbar extends Component {
@@ -20,14 +21,23 @@ class Navbar extends Component {
           >
             GameDB
           </Link>
-          <Link to="/favourites" className="navbar-toggler">
-            Favourites
-          </Link>
+          {this.props.isNotAuthenticated ? (
+            <SignedOutLinks/>
+          ) : (
+            <SignedInLinks profile={this.props.profile} />
+          )}
         </div>
       </nav>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isNotAuthenticated: state.firebase.auth.isEmpty,
+    profile: state.firebase.profile,
+  };
+};
 
 const mapStateToDispatch = (dispatch) => ({
   actions: bindActionCreators(
@@ -38,4 +48,4 @@ const mapStateToDispatch = (dispatch) => ({
   ),
 });
 
-export default connect(null, mapStateToDispatch)(Navbar);
+export default connect(mapStateToProps, mapStateToDispatch)(Navbar);
