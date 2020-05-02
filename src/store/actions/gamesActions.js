@@ -79,7 +79,6 @@ export const addToFavourites = (id) => {
 }
 
 export const removeFromFavourites = (id) => {
-    console.log(id);
     return (dispatch) => {
         dispatch({ type: 'REMOVE_FAVOURITE', id })
     }

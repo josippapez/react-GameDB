@@ -5,8 +5,8 @@ import SignUp from "../authentication/SignUp";
 function SignedOutLinks(props) {
   return (
     <div>
-      <button onClick={() => props.showSignUpModal()}>Sign up</button>
-      <button onClick={() => props.showSignInModal()}>Log in</button>
+      <button className="btn border-success option  mr-3" onClick={() => props.showSignUpModal()}>Sign up</button>
+      <button className="btn border-success option" onClick={() => props.showSignInModal()}>Log in</button>
       {props.signInModal && <SignIn />}
       {props.signUpModal && <SignUp />}
     </div>

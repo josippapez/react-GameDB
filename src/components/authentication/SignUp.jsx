@@ -103,7 +103,7 @@ class SignUp extends Component {
               />
             </div>
             <div>
-              <button className="btn border-success">Sign up</button>
+              <button className="btn border-success option text-dark">Sign up</button>
               <div className="red-text center">
                 {authError ? <p>{authError}</p> : null}
               </div>

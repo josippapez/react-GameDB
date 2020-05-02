@@ -11,10 +11,10 @@ class GamesSummary extends Component {
     return (
       <div
         onMouseEnter={() => {
-          this.setState({ hovered: !this.state.hovered });
+          this.setState({ hovered: true });
         }}
         onMouseLeave={() => {
-          this.setState({ hovered: !this.state.hovered });
+          this.setState({ hovered: false });
         }}
       >
         {this.props.favourites && (

@@ -6,10 +6,10 @@ import { signOut } from "../../store/actions/authActions";
 function SignedInLinks(props) {
   return (
     <div>
-      <NavLink to="/favourites" className="navbar-toggler mr-3">
+      <NavLink to="/favourites" className="btn border-success option  mr-3">
         Favourites
       </NavLink>
-      <button onClick={props.signOut} className="navbar-toggler">Log Out</button>
+      <button onClick={props.signOut} className="btn border-success option">Log Out</button>
     </div>
   );
 }

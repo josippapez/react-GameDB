@@ -1,3 +1,5 @@
+@import "./styles/colors";
+
 body,
 html {
   margin: 0;
@@ -91,5 +93,13 @@ code {
   }
   to {
     background-color: black;
+  }
+}
+
+.option {
+  color: $white;
+  &:hover {
+      color: $white;
+      background: rgba(grey, 1);
   }
 }

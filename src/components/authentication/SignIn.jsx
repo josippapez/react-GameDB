@@ -22,6 +22,7 @@ class SignIn extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.actions.signIn(this.state);
+    this.props.actions.showSignInModal();
   };
   render() {
     const { status, auth } = this.props;
@@ -33,7 +34,9 @@ class SignIn extends Component {
         open={this.props.signInModal}
         onClose={() => {
           this.props.actions.showSignInModal();
-          this.props.actions.resetStatus();
+          if (status) {
+            this.props.actions.resetStatus();
+          }
         }}
         styles={{
           overlay: {
@@ -79,7 +82,9 @@ class SignIn extends Component {
                 />
               </div>
               <div className="form-group">
-                <button className="btn border-success">Login</button>
+                <button className="btn border-success option text-dark">
+                  Login
+                </button>
 
                 {status ? (
                   <div className="status-text pt-3 mt-3">

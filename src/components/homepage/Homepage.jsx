@@ -15,7 +15,6 @@ import {
   setPage,
 } from "../../store/actions/gamesActions";
 import GameDetails from "../games/GameDetails";
-import SignIn from "../authentication/SignIn";
 
 class Homepage extends Component {
   state = {
