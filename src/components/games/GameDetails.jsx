@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Modal from "react-responsive-modal";
+import classNames from "classnames";
 
 import {
   fetchGameDetail,
@@ -107,19 +108,33 @@ class GameDetails extends Component {
                 },
               }}
             >
-              {!this.props.favourite && (
-                <button
-                  className="btn btn-outline-light btn-flat favourites-button"
-                  onClick={() => {
-                    this.props.actions.addToFavourites(this.props.game.id);
-                  }}
-                >
-                  Add to favourites
-                </button>
-              )}
               <div className="detail-card container-xl-1" id="fadein">
                 <div className={gridStyle}>
                   <div className="col">
+                    {!this.props.favourite && !this.props.auth.isEmpty && (
+                      <button
+                        className={classNames({
+                          btn: true,
+                          "btn-flat": true,
+                          "favourites-button": true,
+                          "btn-success disabled": this.props.favourites.includes(
+                            this.props.game.id
+                          ),
+                          "btn-outline-success": !this.props.favourites.includes(
+                            this.props.game.id
+                          ),
+                        })}
+                        onClick={() => {
+                          this.props.actions.addToFavourites(
+                            this.props.game.id
+                          );
+                        }}
+                      >
+                        {this.props.favourites.includes(this.props.game.id)
+                          ? "Added to favourites"
+                          : "Add to favourites"}
+                      </button>
+                    )}
                     <div className="detail-card-image">
                       <img
                         src={this.props.game.background_image}
@@ -180,19 +195,22 @@ class GameDetails extends Component {
                       {this.props.game.ratings &&
                         this.props.game.ratings.map((rating) => {
                           return (
-                            <li
-                              style={{ "--width": rating.percent + "%" }}
-                              className={
-                                "list-group-item text-capitalize p-2" +
-                                (this.state.ratingsAnimation
-                                  ? " animation"
-                                  : "")
-                              }
-                              key={rating.id}
-                              id={rating.title}
-                            >
-                              {rating.title}-{rating.percent}%
-                            </li>
+                            <div className="d-inline-flex text-capitalize">
+                              <li
+                                style={{ "--width": rating.percent + "%" }}
+                                className={
+                                  "list-group-item text-capitalize p-2 mr-3" +
+                                  (this.state.ratingsAnimation
+                                    ? " animation"
+                                    : "")
+                                }
+                                key={rating.id}
+                                id={rating.title}
+                              >
+                                {rating.percent}%
+                              </li>
+                              {rating.title}
+                            </div>
                           );
                         })}
                     </ul>
@@ -209,6 +227,8 @@ class GameDetails extends Component {
 const mapStateToProps = (state) => {
   return {
     game: state.games.game,
+    auth: state.firebase.auth,
+    favourites: state.games.favourites,
   };
 };
 

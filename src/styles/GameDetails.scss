@@ -21,7 +21,10 @@
 }
 
 .favourites-button {
-  position: absolute;
+  position: relative;
+  top: -10px;
+  left: 0;
+  z-index: 200;
 }
 
 .detail-card {
@@ -64,19 +67,31 @@
 }
 #exceptional {
   background-color: greenyellow;
+  color: black;
+  max-height: 42px;
   margin-right: 0;
+  overflow: hidden;
 }
 #recommended {
   margin-right: 0;
+  color: white;
   background-color: rgb(2, 132, 244);
+  overflow: hidden;
+  max-height: 42px;
 }
 #meh {
   margin-right: 0;
   background-color: brown;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 42px;
 }
 #skip {
   margin-right: 0;
   background-color: red;
+  overflow: hidden;
+  max-height: 42px;
 }
 @keyframes filling {
   from {

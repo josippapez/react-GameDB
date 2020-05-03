@@ -103,3 +103,12 @@ code {
       background: rgba(grey, 1);
   }
 }
+
+.initials {
+  border: 2px solid white;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  background-color: $initials;
+  border-radius: 50%;
+}

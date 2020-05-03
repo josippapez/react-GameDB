@@ -153,6 +153,7 @@ const mapStateToProps = (state) => {
     signInModal: state.modals.signInModal,
     gameIdToShow: state.games.gameIdToShow,
     pageId: state.games.pageId,
+    store: state
   };
 };
 

@@ -37,8 +37,12 @@ const games = (state = initState, action) => {
             return { ...state, game: {} }
         case 'RESET_DATA':
             return { ...state, searchResults: [], game: {}, games: action.games, pageId: 1 }
+        case 'RESET_FAVOURITES':
+            return { ...state, favourites: [], fetchedFavouriteGames: [] }
         case 'GET_PREVIOUS_PAGE':
             return { ...state, previousPage: action.previousPage, previousGameName: action.previousGameName }
+        case 'SET_FAVOURITES':
+            return { ...state, favourites: action.favourites }
         case 'SET_FAVOURITE':
             return { ...state, favourites: [...new Set([...state.favourites, action.id])] }
         case 'REMOVE_FAVOURITE':
@@ -48,7 +52,7 @@ const games = (state = initState, action) => {
         case 'SET_GAME_TO_SHOW':
             return { ...state, gameIdToShow: action.gameId }
         case 'RESET_FAVOURITE_DETAILS':
-            return { ...state, fetchedFavouriteGames: []     }
+            return { ...state, fetchedFavouriteGames: [] }
         default:
             return state;
     }

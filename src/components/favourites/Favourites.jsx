@@ -12,13 +12,17 @@ import {
   setGameToShow,
   removeFavouriteDetails,
   removeFromFavourites,
+  setFavourites,
 } from "../../store/actions/gamesActions";
 import GameDetails from "../games/GameDetails";
 import GameList from "../games/GamesList";
 
 class Favourites extends Component {
   componentDidMount() {
-    if (!this.props.fetchedFavouriteGames.length) {
+    if (
+      !this.props.fetchedFavouriteGames.length &&
+      this.props.favourites.length
+    ) {
       this.props.favourites.map((favourite) =>
         this.props.actions.fetchFavouriteDetails(favourite)
       );
@@ -39,10 +43,30 @@ class Favourites extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (
+      this.props.store.firestore.data.favourites &&
+      this.props.store.firestore.data.favourites[
+        this.props.store.firebase.auth.uid
+      ] &&
+      this.props.store.firestore.data.favourites[
+        this.props.store.firebase.auth.uid
+      ].favourites.length &&
+      !this.props.favourites.length
+    ) {
+      this.props.actions.setFavourites(
+        this.props.store.firestore.data.favourites[
+          this.props.store.firebase.auth.uid
+        ].favourites
+      );
+      this.componentDidMount();
+    }
+  }
+
   render() {
     return (
       <div>
-        {this.props.auth.isLoaded && this.props.auth.isEmpty && this.props.favourites.length ? (
+        {this.props.auth.isEmpty ? (
           <Redirect to="/" />
         ) : (
           <div className="favourites">
@@ -81,6 +105,7 @@ const mapStateToProps = (state) => {
     gameIdToShow: state.games.gameIdToShow,
     gameDetailsModal: state.modals.showGameDetailsModal,
     auth: state.firebase.auth,
+    store: state,
   };
 };
 
@@ -94,6 +119,7 @@ const mapStateToDispatch = (dispatch) => ({
       setGameToShow,
       removeFavouriteDetails,
       removeFromFavourites,
+      setFavourites,
     },
     dispatch
   ),

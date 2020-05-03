@@ -6,15 +6,15 @@ import { signUp, resetStatus } from "../../store/actions/authActions";
 import { showSignUpModal } from "../../store/actions/gamesActions";
 import "./Forms.scss";
 import Modal from "react-responsive-modal";
-import Colors from "../../styles/_colors.scss"
+import Colors from "../../styles/_colors.scss";
 import { bindActionCreators } from "redux";
 
 class SignUp extends Component {
   state = {
     email: "",
     password: "",
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
   };
   handleChange = (e) => {
     this.setState({
@@ -23,20 +23,20 @@ class SignUp extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.signUp(this.state);
+    this.props.actions.signUp(this.state);
   };
   render() {
     const { auth, authError } = this.props;
     if (auth.uid) return <Redirect to="/" />;
     return (
-        <Modal
+      <Modal
         modalId="signUp-form"
         closeIconId="signUp-form-close-icon"
         open={this.props.signUpModal}
         onClose={() => {
-            this.props.actions.showSignUpModal();
-            this.props.actions.resetStatus();
-          }}
+          this.props.actions.showSignUpModal();
+          this.props.actions.resetStatus();
+        }}
         styles={{
           overlay: {
             background: Colors.overlay,
@@ -54,77 +54,83 @@ class SignUp extends Component {
           },
         }}
       >
-      <div className="registration-Form" id="fadein">
-        <div className="container pt-5">
-          <form onSubmit={this.handleSubmit} className="form-group">
-            <h5>Sign up</h5>
-            <div className="form-group">
-              <label htmlFor="email" className="float-left label">
-                Email
-              </label>
-              <input
-                className="form-control"
-                type="email"
-                id="email"
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password" className="float-left label">
-                Password
-              </label>
-              <input
-                className="form-control"
-                type="password"
-                id="password"
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName" className="float-left label">
-                Last name
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                id="lastName"
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="firstName" className="float-left label">
-                First name
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                id="firstName"
-                onChange={this.handleChange}
-              />
-            </div>
-            <div>
-              <button className="btn border-success option text-dark">Sign up</button>
-              <div className="red-text center">
-                {authError ? <p>{authError}</p> : null}
+        <div className="registration-Form" id="fadein">
+          <div className="container pt-5">
+            <form onSubmit={this.handleSubmit} className="form-group">
+              <h5>Sign up</h5>
+              <div className="form-group">
+                <label htmlFor="email" className="float-left label">
+                  Email
+                </label>
+                <input
+                  className="form-control"
+                  type="email"
+                  id="email"
+                  onChange={this.handleChange}
+                />
               </div>
-            </div>
-          </form>
+              <div className="form-group">
+                <label htmlFor="password" className="float-left label">
+                  Password
+                </label>
+                <input
+                  className="form-control"
+                  type="password"
+                  id="password"
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName" className="float-left label">
+                  Last name
+                </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="lastName"
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="firstName" className="float-left label">
+                  First name
+                </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="firstName"
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <button className="btn border-success option text-dark">
+                  Sign up
+                </button>
+                <div className="red-text center">
+                  {authError ? (
+                    <div className="status-text pt-3 mt-3">
+                      <p>{authError}</p>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
       </Modal>
     );
   }
 }
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(
-      {
-        showSignUpModal,
-        signUp,
-        resetStatus,
-      },
-      dispatch
-    ),
-  });
+  actions: bindActionCreators(
+    {
+      showSignUpModal,
+      signUp,
+      resetStatus,
+    },
+    dispatch
+  ),
+});
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,

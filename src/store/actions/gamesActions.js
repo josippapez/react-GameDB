@@ -78,6 +78,12 @@ export const addToFavourites = (id) => {
     }
 }
 
+export const setFavourites = (favourites) => {
+    return (dispatch) => {
+        dispatch({ type: "SET_FAVOURITES", favourites})
+    }
+}
+
 export const removeFromFavourites = (id) => {
     return (dispatch) => {
         dispatch({ type: 'REMOVE_FAVOURITE', id })
@@ -91,6 +97,12 @@ export const resetData = () => {
             .catch((err) => {
                 dispatch({ type: 'FETCH_ERROR', err })
             })
+    }
+}
+
+export const resetFavourites = () => {
+    return (dispatch) => {
+        dispatch({ type: 'RESET_FAVOURITES'});
     }
 }
 
