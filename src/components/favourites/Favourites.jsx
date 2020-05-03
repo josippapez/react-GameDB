@@ -65,7 +65,7 @@ class Favourites extends Component {
 
   render() {
     return (
-      <div className="favourites">
+      <div className="favourites" id="fadein">
         {this.props.auth.isEmpty ? (
           <Redirect to="/" />
         ) : (
