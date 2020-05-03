@@ -195,7 +195,10 @@ class GameDetails extends Component {
                       {this.props.game.ratings &&
                         this.props.game.ratings.map((rating) => {
                           return (
-                            <div className="d-inline-flex text-capitalize">
+                            <div
+                              className="d-inline-flex text-capitalize"
+                              key={rating.id}
+                            >
                               <li
                                 style={{ "--width": rating.percent + "%" }}
                                 className={
@@ -204,7 +207,6 @@ class GameDetails extends Component {
                                     ? " animation"
                                     : "")
                                 }
-                                key={rating.id}
                                 id={rating.title}
                               >
                                 {rating.percent}%

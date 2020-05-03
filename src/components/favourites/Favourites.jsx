@@ -65,11 +65,11 @@ class Favourites extends Component {
 
   render() {
     return (
-      <div>
+      <div className="favourites">
         {this.props.auth.isEmpty ? (
           <Redirect to="/" />
         ) : (
-          <div className="favourites">
+          <div>
             {this.props.fetchedFavouriteGames.length ===
               this.props.favourites.length && (
               <div>
