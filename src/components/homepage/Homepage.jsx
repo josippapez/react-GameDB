@@ -12,7 +12,6 @@ import {
   setGameToShow,
   incrementPage,
   decrementPage,
-  setFavourites,
   setPage,
 } from "../../store/actions/gamesActions";
 import GameDetails from "../games/GameDetails";
@@ -34,22 +33,6 @@ class Homepage extends Component {
     }
   }
   componentDidUpdate(nextProps) {
-    if (
-      this.props.store.firestore.data.favourites &&
-      this.props.store.firestore.data.favourites[
-        this.props.store.firebase.auth.uid
-      ] &&
-      this.props.store.firestore.data.favourites[
-        this.props.store.firebase.auth.uid
-      ].favourites.length &&
-      !this.props.favourites.length
-    ) {
-      this.props.actions.setFavourites(
-        this.props.store.firestore.data.favourites[
-          this.props.store.firebase.auth.uid
-        ].favourites
-      );
-    }
     if (nextProps.pageId !== this.props.pageId) {
       this.componentDidMount();
     }
@@ -174,7 +157,6 @@ const mapStateToProps = (state) => {
     gameIdToShow: state.games.gameIdToShow,
     pageId: state.games.pageId,
     store: state,
-    favourites: state.games.favourites,
   };
 };
 
@@ -188,7 +170,6 @@ const mapDispatchToProps = (dispatch) => ({
       setGameToShow,
       incrementPage,
       decrementPage,
-      setFavourites,
       setPage,
     },
     dispatch

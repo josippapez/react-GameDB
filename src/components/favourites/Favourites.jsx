@@ -27,7 +27,7 @@ class Favourites extends Component {
         this.props.actions.fetchFavouriteDetails(favourite)
       );
     } else if (
-      this.props.fetchedFavouriteGames &&
+      this.props.fetchedFavouriteGames && this.props.favourites &&
       this.props.fetchedFavouriteGames.length < this.props.favourites.length
     ) {
       for (
@@ -50,7 +50,7 @@ class Favourites extends Component {
           <Redirect to="/" />
         ) : (
           <div>
-            {this.props.fetchedFavouriteGames.length ===
+            {this.props.fetchedFavouriteGames && this.props.favourites && this.props.fetchedFavouriteGames.length ===
               this.props.favourites.length && (
               <div>
                 <GameList

@@ -1,11 +1,22 @@
+import { purgeStoredState } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
 export const signIn = (userData) => {
-  return (dispatch, getState, { getFirebase }) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+
     firebase
       .auth()
       .signInWithEmailAndPassword(userData.email, userData.password)
-      .then(() => {
-        dispatch({ type: "LOGIN_SUCCESS" });
+      .then((response) => {
+        getFirebase().firestore().collection("favourites").doc(response.user.uid).get().then(doc => {
+          if (doc.exists) {
+            dispatch({type: "RESET_FAVOURITES"});
+            const favourites = doc.data().favourites;
+            dispatch({type: "SET_FAVOURITES", favourites})
+          }
+          dispatch({ type: "LOGIN_SUCCESS" });
+        })
       })
       .catch(err => {
         dispatch({ type: "LOGIN_ERROR", err });
@@ -20,6 +31,10 @@ export const signOut = () => {
       .auth()
       .signOut()
       .then(() => {
+        purgeStoredState({
+          key: "root",
+          storage,
+        });
         dispatch({ type: "SIGNOUT_SUCCESS" });
       });
   };
@@ -32,7 +47,7 @@ export const signUp = (newUser) => {
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(response => {
-         getFirebase().firestore()
+        getFirebase().firestore()
           .collection("users")
           .doc(response.user.uid)
           .set({
@@ -40,7 +55,7 @@ export const signUp = (newUser) => {
             lastName: newUser.lastName,
             initials: newUser.firstName[0] + newUser.lastName[0]
           });
-          getFirebase().firestore()
+        getFirebase().firestore()
           .collection("favourites")
           .doc(response.user.uid)
           .set({
@@ -49,8 +64,8 @@ export const signUp = (newUser) => {
             authorLastName: newUser.lastName,
             createdAt: new Date()
           });
+        dispatch({type: "RESET_FAVOURITES"});
       })
-      .then(() => dispatch({ type: "SIGNUP_SUCCSESS" }))
       .catch(err => dispatch({ type: "SIGNUP_ERROR", err }));
   };
 };

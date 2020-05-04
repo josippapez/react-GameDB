@@ -80,6 +80,7 @@ class GameDetails extends Component {
     if (window.innerWidth <= 800) {
       gridStyle = "row row-cols-1";
     }
+    console.log(this.props.favourites);
     return (
       <div>
         {this.props.game.id && (
@@ -117,10 +118,10 @@ class GameDetails extends Component {
                           btn: true,
                           "btn-flat": true,
                           "favourites-button": true,
-                          "btn-success disabled": this.props.favourites.includes(
+                          "btn-success disabled": this.props.favourites && this.props.favourites.includes(
                             this.props.game.id
                           ),
-                          "btn-outline-success": !this.props.favourites.includes(
+                          "btn-outline-success": this.props.favourites && !this.props.favourites.includes(
                             this.props.game.id
                           ),
                         })}
