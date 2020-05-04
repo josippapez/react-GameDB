@@ -5,6 +5,7 @@ import { signOut } from "../../store/actions/authActions";
 import { addFavouritesAndSignOut } from "../../store/actions/favouritesActions";
 import { bindActionCreators, compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
+import { resetFavourites } from "../../store/actions/gamesActions";
 
 function SignedInLinks(props) {
   return (
@@ -30,6 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
     {
       signOut,
       addFavouritesAndSignOut,
+      resetFavourites
     },
     dispatch
   ),

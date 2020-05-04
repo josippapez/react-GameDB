@@ -44,6 +44,7 @@ class Favourites extends Component {
   }
 
   componentDidUpdate() {
+    console.log(this.props);
     if (
       this.props.store.firestore.data.favourites &&
       this.props.store.firestore.data.favourites[
@@ -59,6 +60,14 @@ class Favourites extends Component {
           this.props.store.firebase.auth.uid
         ].favourites
       );
+    }
+    if (!this.props.auth.isEmpty &&
+      this.props.favourites.length ===
+        this.props.store.firestore.data.favourites[
+          this.props.store.firebase.auth.uid
+        ].favourites.length &&
+      !this.props.fetchedFavouriteGames.length
+    ) {
       this.componentDidMount();
     }
   }
