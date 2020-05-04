@@ -28,18 +28,26 @@ export const signOut = () => {
 export const signUp = (newUser) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
-
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then(response => {
-        return getFirebase().firestore()
+         getFirebase().firestore()
           .collection("users")
           .doc(response.user.uid)
           .set({
             firstName: newUser.firstName,
             lastName: newUser.lastName,
             initials: newUser.firstName[0] + newUser.lastName[0]
+          });
+          getFirebase().firestore()
+          .collection("favourites")
+          .doc(response.user.uid)
+          .set({
+            favourites: [],
+            authorFirstName: newUser.firstName,
+            authorLastName: newUser.lastName,
+            createdAt: new Date()
           });
       })
       .then(() => dispatch({ type: "SIGNUP_SUCCSESS" }))

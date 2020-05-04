@@ -7,7 +7,6 @@ export const addFavouritesAndSignOut = (favourites) => {
             favourites,
             authorFirstName: profile.firstName,
             authorLastName: profile.lastName,
-            authorId: authorId,
             createdAt: new Date()
         }).then(() => {
             firebase

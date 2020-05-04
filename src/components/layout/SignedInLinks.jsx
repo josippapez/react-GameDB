@@ -16,13 +16,14 @@ function SignedInLinks(props) {
       <button
         onClick={() => {
           props.actions.addFavouritesAndSignOut(props.favourites);
-          window.localStorage.clear();
         }}
         className="btn border-success option mr-3"
       >
         Log Out
       </button>
-      <div className="float-right initials">{props.store.firebase.profile.initials}</div>
+      <div className="float-right initials">
+        {props.store.firebase.profile.initials}
+      </div>
     </div>
   );
 }
@@ -31,7 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
     {
       signOut,
       addFavouritesAndSignOut,
-      resetFavourites
+      resetFavourites,
     },
     dispatch
   ),
