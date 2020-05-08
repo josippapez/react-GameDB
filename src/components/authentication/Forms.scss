@@ -28,14 +28,18 @@
     position: fixed;
     top: 0px;
     right: 0px;
-    padding: 1.2rem; }
+    padding: 1.2rem;
+    @media screen and (max-width: 758.67px) {
+      width: 100%;
+    }
+}
 
 #login-form-close-icon, #signUp-form-close-icon {
-  width: 25.46px;
-  height: 25.46px;
+  width: 55.46px;
+  height: 55.46px;
   position: absolute;
-  top: 49px;
-  right: 42px;
+  top: 20px;
+  right: 15px;
   color: #616262;
   background: none;
   display: flex;

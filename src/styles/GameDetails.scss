@@ -8,16 +8,11 @@
   height: 35px;
   position: absolute;
   top: 20px;
-  margin-top: 2%;
-  right: 130px;
+  right: 30px;
   background: white;
   display: flex;
   border: medium solid;
   border-radius: 4px;
-}
-
-.react-responsive-modal-overlay {
-  padding-top: 3% !important;
 }
 
 .favourites-button {
@@ -25,6 +20,9 @@
   top: -10px;
   left: 0;
   z-index: 200;
+  @media screen and (max-width: 800px) {
+    top: -5px;
+  }
 }
 
 .detail-card {
@@ -38,6 +36,11 @@
   position: absolute;
   background: white;
   height: fit-content;
+  @media screen and (max-width: 800px) {
+    left: 2.5%;
+    top: 1.5%;
+    width: 95%;
+  }
 }
 .detail-video-clip video {
   width: 100%;

@@ -12,17 +12,16 @@ import Colors from "../../styles/_colors.scss";
 class SignIn extends Component {
   state = {
     email: "",
-    password: "",
+    password: ""
   };
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     });
   };
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     this.props.actions.signIn(this.state);
-    this.props.actions.showSignInModal();
   };
   render() {
     const { status, auth } = this.props;
@@ -51,8 +50,8 @@ class SignIn extends Component {
             overflowY: "auto",
             overflowX: "hidden",
             zIndex: "1000",
-            padding: "1.2rem",
-          },
+            padding: "1.2rem"
+          }
         }}
       >
         <div className="login-Form" id="fadein">
@@ -100,22 +99,22 @@ class SignIn extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       showSignInModal,
       signIn,
-      resetStatus,
+      resetStatus
     },
     dispatch
-  ),
+  )
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     signInModal: state.modals.signInModal,
     status: state.auth.status,
-    auth: state.firebase.auth,
+    auth: state.firebase.auth
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

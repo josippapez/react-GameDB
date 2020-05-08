@@ -20,6 +20,7 @@ class Homepage extends Component {
   state = {
     gameName: "",
     pageId: null,
+    gridStyle: "col top-buffer",
   };
   pageNumberInput = React.createRef();
 
@@ -32,11 +33,13 @@ class Homepage extends Component {
       button.removeAttribute("disabled");
     }
   }
+
   componentDidUpdate(nextProps) {
     if (nextProps.pageId !== this.props.pageId) {
       this.componentDidMount();
     }
   }
+
   componentDidMount() {
     if (this.state.gameName !== "") {
       this.props.actions.fetchGame(this.state.gameName, this.props.pageId);
@@ -44,26 +47,45 @@ class Homepage extends Component {
       this.props.actions.fetchGames(this.props.pageId);
     }
     this.checkPageNumberForButtons();
+    window.addEventListener("resize", this.handleResize);
   }
+
   componentWillUnmount() {
     this.props.actions.savePreviousPage(this.props.pageId, this.state.gameName);
+    window.removeEventListener("resize", this.handleResize);
   }
+
+  handleResize = () => {
+    if (window.innerWidth < 770) {
+      this.setState({
+        gridStyle: "col-12 top-buffer",
+      });
+    } else if (window.innerWidth < 995) {
+      this.setState({
+        gridStyle: "col-6 top-buffer",
+      });
+    } else {
+      this.setState({
+        gridStyle: "col top-buffer",
+      });
+    }
+  };
 
   incrementPage = () => {
     this.props.actions.incrementPage();
   };
+
   decrementPage = () => {
     this.props.actions.decrementPage();
   };
+
   handlePageNumberSubmit = (e) => {
     e.preventDefault();
-    if (
-      this.pageNumberInput.current &&
-      this.pageNumberInput.current.valueAsNumber > 0
-    ) {
+    if (this.pageNumberInput.current) {
       this.props.actions.setPage(this.pageNumberInput.current.valueAsNumber);
     }
   };
+
   handleQuerySubmit = (e) => {
     e.preventDefault();
     var input = document.getElementById("searchText").value;
@@ -75,6 +97,7 @@ class Homepage extends Component {
       () => this.componentDidMount()
     );
   };
+
   render() {
     var { games, searchResults } = this.props;
     return (
@@ -102,21 +125,19 @@ class Homepage extends Component {
           />
           <button className="btn btn-dark mx-2">Submit</button>
         </form>
-        {(searchResults.results && (
-          <GameList
-            games={searchResults.results}
-            setGameToShow={this.props.actions.setGameToShow}
-            toggleGameDetailsModal={this.props.actions.showGameDetailsModal}
-          />
-        )) ||
-          (games.results && (
-            <GameList
-              games={games.results}
-              setGameToShow={this.props.actions.setGameToShow}
-              toggleGameDetailsModal={this.props.actions.showGameDetailsModal}
-            />
-          ))}
-        <form className="center" onSubmit={this.handlePageNumberSubmit}>
+        <GameList
+          games={searchResults.results ? searchResults.results : games.results}
+          setGameToShow={this.props.actions.setGameToShow}
+          toggleGameDetailsModal={this.props.actions.showGameDetailsModal}
+          gridStyle={this.state.gridStyle}
+        />
+        {searchResults.count === 0 && (
+          <div className="no-games-found">No games found!</div>
+        )}
+        <form
+          className="center page-form"
+          onSubmit={this.handlePageNumberSubmit}
+        >
           <label className="pageNumber mb-0 mr-sm-0 top-buffer">
             Page number: {this.props.pageId}
           </label>
@@ -125,6 +146,8 @@ class Homepage extends Component {
             id="pageNumber"
             ref={this.pageNumberInput}
             className="form-control"
+            max={(games.count / 20 + 1).toFixed(0)}
+            min={1}
           ></input>
           <button className="btn btn-dark">Submit</button>
         </form>

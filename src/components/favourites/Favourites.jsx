@@ -18,7 +18,12 @@ import GameDetails from "../games/GameDetails";
 import GameList from "../games/GamesList";
 
 class Favourites extends Component {
+  state = {
+    gridStyle: "col top-buffer",
+  };
+
   componentDidMount() {
+    window.addEventListener("resize", this.handleResize);
     if (
       !this.props.fetchedFavouriteGames.length &&
       this.props.favourites.length
@@ -27,7 +32,8 @@ class Favourites extends Component {
         this.props.actions.fetchFavouriteDetails(favourite)
       );
     } else if (
-      this.props.fetchedFavouriteGames && this.props.favourites &&
+      this.props.fetchedFavouriteGames &&
+      this.props.favourites &&
       this.props.fetchedFavouriteGames.length < this.props.favourites.length
     ) {
       for (
@@ -43,6 +49,26 @@ class Favourites extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
+  handleResize = () => {
+    if (window.innerWidth < 770) {
+      this.setState({
+        gridStyle: "col-12 top-buffer",
+      });
+    } else if (window.innerWidth < 995) {
+      this.setState({
+        gridStyle: "col-6 top-buffer",
+      });
+    } else {
+      this.setState({
+        gridStyle: "col top-buffer",
+      });
+    }
+  };
+
   render() {
     return (
       <div className="favourites" id="fadein">
@@ -50,27 +76,32 @@ class Favourites extends Component {
           <Redirect to="/" />
         ) : (
           <div>
-            {this.props.fetchedFavouriteGames && this.props.favourites && this.props.fetchedFavouriteGames.length ===
-              this.props.favourites.length && (
-              <div>
-                <GameList
-                  games={this.props.fetchedFavouriteGames}
-                  setGameToShow={this.props.actions.setGameToShow}
-                  toggleGameDetailsModal={
-                    this.props.actions.showGameDetailsModal
-                  }
-                  favourites
-                  removeFromFavourites={this.props.actions.removeFromFavourites}
-                />
-                {this.props.gameDetailsModal && (
-                  <GameDetails
-                    favourite
-                    id={this.props.gameIdToShow}
-                    gameDetailsModal={this.props.gameDetailsModal}
+            {this.props.fetchedFavouriteGames &&
+              this.props.favourites &&
+              this.props.fetchedFavouriteGames.length ===
+                this.props.favourites.length && (
+                <div>
+                  <GameList
+                    games={this.props.fetchedFavouriteGames}
+                    setGameToShow={this.props.actions.setGameToShow}
+                    toggleGameDetailsModal={
+                      this.props.actions.showGameDetailsModal
+                    }
+                    favourites
+                    removeFromFavourites={
+                      this.props.actions.removeFromFavourites
+                    }
+                    gridStyle={this.state.gridStyle}
                   />
-                )}
-              </div>
-            )}
+                  {this.props.gameDetailsModal && (
+                    <GameDetails
+                      favourite
+                      id={this.props.gameIdToShow}
+                      gameDetailsModal={this.props.gameDetailsModal}
+                    />
+                  )}
+                </div>
+              )}
           </div>
         )}
       </div>

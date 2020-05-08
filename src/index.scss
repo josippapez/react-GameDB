@@ -38,11 +38,22 @@ code {
 .top-buffer {
   margin-top: 25px;
 }
-
+.no-games-found {
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: white;
+  font-size: 50px;
+  top: 50%;
+}
 .pageNumber {
   color: white;
 }
-
+.page-form {
+  position: relative;
+}
 #card {
   z-index: 0;
 }
@@ -99,8 +110,8 @@ code {
 .option {
   color: $white;
   &:hover {
-      color: $white;
-      background: rgba(grey, 1);
+    color: $white;
+    background: rgba(grey, 1);
   }
 }
 

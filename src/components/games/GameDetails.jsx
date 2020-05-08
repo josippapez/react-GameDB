@@ -14,23 +14,40 @@ import "../../styles/GameDetails.scss";
 import Colors from "../../styles/_colors.scss";
 
 class GameDetails extends Component {
-  state = {
-    metacriticAnimation: false,
-    ratingsAnimation: false,
-    metacriticVisiblitly: false,
-    ratingsVisibility: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      metacriticAnimation: false,
+      ratingsAnimation: false,
+      metacriticVisiblitly: false,
+      ratingsVisibility: false,
+      gridStyle: "row row-cols-2",
+    };
+  }
   componentDidMount() {
     this.props.actions.fetchGameDetail(this.props.id);
+    window.addEventListener("resize", this.handleResize);
   }
+  componentWillUnmount() {
+    this.props.actions.resetGame();
+    window.removeEventListener("resize", this.handleResize);
+  }
+  handleResize = () => {
+    if (window.innerWidth < 995) {
+      this.setState({
+        gridStyle: "row row-cols-1",
+      });
+    } else {
+      this.setState({
+        gridStyle: "row row-cols-2",
+      });
+    }
+  };
   checkForVideo = (game) => {
     if (game.clip && game.clip != null) {
       return <video controls src={game.clip.clip} muted />;
     }
   };
-  componentWillUnmount() {
-    this.props.actions.resetGame();
-  }
   alternativeNames = (game) => {
     if (game.alternative_names && game.alternative_names.length > 0) {
       return (
@@ -76,18 +93,12 @@ class GameDetails extends Component {
     }, 1000);
   };
   render() {
-    let gridStyle = "row row-cols-2";
-    if (window.innerWidth <= 800) {
-      gridStyle = "row row-cols-1";
-    }
-    console.log(this.props.favourites);
     return (
       <div>
         {this.props.game.id && (
           <div>
             <Modal
               open={this.props.gameDetailsModal}
-              center
               closeIconId="game-details-close-icon"
               closeOnOverlayClick
               closeOnEsc
@@ -110,7 +121,7 @@ class GameDetails extends Component {
               }}
             >
               <div className="detail-card container-xl-1" id="fadein">
-                <div className={gridStyle}>
+                <div className={this.state.gridStyle}>
                   <div className="col">
                     {!this.props.favourite && !this.props.auth.isEmpty && (
                       <button
@@ -118,12 +129,12 @@ class GameDetails extends Component {
                           btn: true,
                           "btn-flat": true,
                           "favourites-button": true,
-                          "btn-success disabled": this.props.favourites && this.props.favourites.includes(
-                            this.props.game.id
-                          ),
-                          "btn-outline-success": this.props.favourites && !this.props.favourites.includes(
-                            this.props.game.id
-                          ),
+                          "btn-success disabled":
+                            this.props.favourites &&
+                            this.props.favourites.includes(this.props.game.id),
+                          "btn-outline-success":
+                            this.props.favourites &&
+                            !this.props.favourites.includes(this.props.game.id),
                         })}
                         onClick={() => {
                           this.props.actions.addToFavourites(
