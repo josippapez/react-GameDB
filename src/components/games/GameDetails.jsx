@@ -26,6 +26,7 @@ class GameDetails extends Component {
   }
   componentDidMount() {
     this.props.actions.fetchGameDetail(this.props.id);
+    this.handleResize();
     window.addEventListener("resize", this.handleResize);
   }
   componentWillUnmount() {
@@ -157,7 +158,7 @@ class GameDetails extends Component {
                       {this.checkForVideo(this.props.game)}
                     </div>
                   </div>
-                  <div className="detail-card-content col jumbotron">
+                  <div className="col jumbotron">
                     <div
                       metacritic={
                         !this.state.metacriticAnimation ? this.metacritic() : ""

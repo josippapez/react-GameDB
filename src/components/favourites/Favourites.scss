@@ -2,6 +2,7 @@
 
 .favourites {
   padding-top: 1%;
-  height: 100vh;
+  height: var(--height);
+  --height: 0;
   background: grey;
 }

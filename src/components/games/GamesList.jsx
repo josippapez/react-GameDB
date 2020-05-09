@@ -5,7 +5,7 @@ function GameList(props) {
   return (
     <div className="game-list container">
       <div className="row row-cols-4">
-        {props.games.map((game) => {
+        {props.games && props.games.map((game) => {
           return (
             <div className={props.gridStyle} key={game.id}>
               <GamesSummary

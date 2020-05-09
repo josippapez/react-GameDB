@@ -47,6 +47,7 @@ class Homepage extends Component {
       this.props.actions.fetchGames(this.props.pageId);
     }
     this.checkPageNumberForButtons();
+    this.handleResize();
     window.addEventListener("resize", this.handleResize);
   }
 

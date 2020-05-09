@@ -23,6 +23,7 @@ class Favourites extends Component {
   };
 
   componentDidMount() {
+    this.handleResize();
     window.addEventListener("resize", this.handleResize);
     if (
       !this.props.fetchedFavouriteGames.length &&
@@ -71,7 +72,7 @@ class Favourites extends Component {
 
   render() {
     return (
-      <div className="favourites" id="fadein">
+      <div className="favourites" style={{ "--height": window.innerHeight + "px" }} id="fadein">
         {this.props.auth.isEmpty ? (
           <Redirect to="/" />
         ) : (
