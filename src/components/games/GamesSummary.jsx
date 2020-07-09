@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  LazyLoadImage,
   trackWindowScroll,
 } from "react-lazy-load-image-component";
 import classNames from "classnames";
@@ -39,8 +38,11 @@ class GamesSummary extends Component {
           <div className="card-image-top z-depth-5">
             <img
               alt={this.props.game.slug}
-              src={"https://media.rawg.io/media/crop/600/400/" +
-              this.props.game.background_image.substring(28, 1080)}
+              src={
+                this.props.game.background_image &&
+                "https://media.rawg.io/media/crop/600/400/" +
+                  this.props.game.background_image.substring(28, 1080)
+              }
             />
           </div>
           <div
@@ -67,8 +69,11 @@ class GamesSummary extends Component {
             id="bg-image"
             alt={this.props.game.slug}
             effect="blur"
-            src={"https://media.rawg.io/media/crop/600/400/" +
-            this.props.game.background_image.substring(28, 1080)}
+            src={
+              this.props.game.background_image &&
+              "https://media.rawg.io/media/crop/600/400/" +
+                this.props.game.background_image.substring(28, 1080)
+            }
           />
         </div>
       </div>
