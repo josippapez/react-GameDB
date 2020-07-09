@@ -82,7 +82,7 @@ class Homepage extends Component {
 
   handlePageNumberSubmit = (e) => {
     e.preventDefault();
-    if (this.pageNumberInput.current) {
+    if (this.pageNumberInput.current && this.pageNumberInput.current.value) {
       this.props.actions.setPage(this.pageNumberInput.current.valueAsNumber);
     }
   };

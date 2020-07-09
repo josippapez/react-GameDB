@@ -37,10 +37,10 @@ class GamesSummary extends Component {
           }}
         >
           <div className="card-image-top z-depth-5">
-            <LazyLoadImage
+            <img
               alt={this.props.game.slug}
-              scrollPosition={this.props.scrollPosition}
-              src={this.props.game.background_image}
+              src={"https://media.rawg.io/media/crop/600/400/" +
+              this.props.game.background_image.substring(28, 1080)}
             />
           </div>
           <div
@@ -63,11 +63,12 @@ class GamesSummary extends Component {
               </p>
             </div>
           </div>
-          <LazyLoadImage
+          <img
             id="bg-image"
             alt={this.props.game.slug}
             effect="blur"
-            src={this.props.game.background_image}
+            src={"https://media.rawg.io/media/crop/600/400/" +
+            this.props.game.background_image.substring(28, 1080)}
           />
         </div>
       </div>
